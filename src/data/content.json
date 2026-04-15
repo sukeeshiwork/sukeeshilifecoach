@@ -1,0 +1,323 @@
+{
+  "siteInfo": {
+    "name": "Life Coach by Sukeeshi",
+    "tagline": "Transform Your Relationships by Healing Yourself First",
+    "email": "contact@lifecoachbysukeshi.com",
+    "whatsapp": "91XXXXXXXXXX",
+    "instagram": "https://instagram.com/lifecoach_sukeeshi"
+  },
+  "hero": {
+    "badge": "NLP Practitioner | Life Coach",
+    "headline": "Transform Your Relationships by Healing Yourself First",
+    "subheadline": "Break toxic patterns, build emotional security, and create the life you truly deserve.",
+    "ctaPrimary": "Book a Call",
+    "ctaSecondary": "Start Your Healing Journey"
+  },
+  "whoThisIsFor": {
+    "badge": "Who This Is For",
+    "headline": "You're in the right place if you:",
+    "points": [
+      "Feel anxious or insecure",
+      "Overthink texts, silence, or emotional distance",
+      "Struggle with self-worth or fear of abandonment",
+      "Keep attracting the same painful patterns"
+    ]
+  },
+  "whatYoullExperience": {
+    "badge": "What You'll Experience",
+    "headline": "Your Life After Healing",
+    "points": [
+      { "title": "Emotional Clarity", "text": "Instead of confusion and mental fog" },
+      { "title": "Confident Communication", "text": "Speak your truth clearly in life and love" },
+      { "title": "Deep Self-Worth", "text": "Inner stability that no one can shake" },
+      { "title": "Secure Relationships", "text": "Healthier, peaceful connections" }
+    ]
+  },
+  "howItWorks": {
+    "badge": "How It Works",
+    "headline": "3 Simple Steps",
+    "steps": [
+      { "number": "01", "title": "Book a clarity call" },
+      { "number": "02", "title": "Identify your emotional patterns" },
+      { "number": "03", "title": "Start your personalized healing journey" }
+    ]
+  },
+  "finalCTA": {
+    "headline": "You don't have to figure this out alone.",
+    "subheadline": "Start your transformation today.",
+    "button": "Book a Call"
+  },
+  "about": {
+    "badge": "About Me",
+    "headline": "Helping You Build Secure, Healthy Relationships From Within",
+    "intro": "I'm Sukeshi, a trained relationship coach who has guided 3000+ individuals through dating and relationship challenges. My work is simple: help you deepen the right relationships and walk away from the wrong ones — without losing yourself. I take a logical and grounded approach to dating. No false promises, no quick fixes. Because a healthy relationship is not built by one person — it's co-created by two willing individuals. I don't teach you how to 'fix' someone. I help you choose yourself.",
+    "approach": {
+      "title": "My Approach",
+      "points": [
+        "Build self-worth and self-respect",
+        "Develop strong boundaries",
+        "Take personal responsibility for your emotional well-being",
+        "Make conscious, intentional relationship choices"
+      ]
+    },
+    "belief": {
+      "title": "What I Believe",
+      "content": "Many people may contribute to your pain, but your happiness is your responsibility. If you're not in the driver's seat of your love life, you unintentionally invite chaos and suffering."
+    },
+    "mission": {
+      "title": "My Mission",
+      "intro": "To simplify dating and empower you to:",
+      "points": [
+        "Have high standards",
+        "Become deeply self-aware",
+        "Create relationships that align with your worth"
+      ]
+    },
+    "truth": {
+      "title": "The Truth I Stand By",
+      "content": "I am not a 'dating guru' who will magically fix your relationship. If someone is not willing to meet you, I will not encourage you to stay and abandon yourself. Because love should never cost you your self-respect."
+    },
+    "vision": {
+      "title": "Vision",
+      "content": "A world where relationships are built on security, not fear."
+    }
+  },
+  "services": {
+    "badge": "Services",
+    "headline": "Your Path to Emotional Freedom & Secure Love",
+    "items": [
+      {
+        "number": "01",
+        "title": "1:1 Relationship Coaching",
+        "description": "Deep, personalized sessions focused on your emotional patterns and relationship challenges."
+      },
+      {
+        "number": "02",
+        "title": "Self-Worth & Confidence Coaching",
+        "description": "Rebuild your inner foundation and stop seeking validation externally."
+      },
+      {
+        "number": "03",
+        "title": "Emotional Healing Sessions",
+        "description": "Heal past wounds, inner child patterns, and subconscious blocks."
+      },
+      {
+        "number": "04",
+        "title": "Relationship Clarity Sessions",
+        "description": "Understand your current relationship and make aligned decisions."
+      }
+    ]
+  },
+  "clarityCall": {
+    "badge": "Clarity Call",
+    "headline": "Book Your Clarity Call",
+    "price": "₹333",
+    "duration": "40 minutes",
+    "safeSpace": {
+      "title": "This is your safe space to:",
+      "points": [
+        {
+          "number": "01",
+          "title": "Share what you're going through",
+          "description": "Speak freely without fear of judgment. Every feeling you carry is valid here."
+        },
+        {
+          "number": "02",
+          "title": "Understand what's really happening",
+          "description": "Uncover patterns and emotional cycles you didn't realize were there."
+        },
+        {
+          "number": "03",
+          "title": "Get clarity on your next steps",
+          "description": "Move from feeling stuck to feeling in control — with aligned, practical guidance."
+        }
+      ]
+    },
+    "whatYoullGet": {
+      "title": "What You'll Get:",
+      "points": [
+        {
+          "icon": "Lightbulb",
+          "title": "Personalized Insights",
+          "description": "No generic advice — everything tailored to your unique patterns and situation."
+        },
+        {
+          "icon": "Compass",
+          "title": "Clear Direction",
+          "description": "Know exactly what to do next. No more overthinking or second-guessing."
+        },
+        {
+          "icon": "Zap",
+          "title": "Actionable Guidance",
+          "description": "Real, practical steps you can apply immediately to break toxic patterns."
+        }
+      ]
+    },
+    "cta": "Book Your Call Now"
+  },
+  "oneOnOne": {
+    "badge": "1-on-1 Coaching",
+    "headline": "1-on-1 Personalized Coaching",
+    "subheadline": "A deeply personal journey tailored to your emotional patterns, relationships, and inner healing.",
+    "points": [
+      "Personalized healing plan for your unique situation",
+      "Safe, non-judgmental space to be fully heard",
+      "Real tools and techniques that create lasting change",
+      "Consistent support throughout your journey"
+    ],
+    "plans": [
+      {
+        "name": "1 Month Coaching",
+        "sessions": "4 sessions (weekly)",
+        "duration": "40 min each",
+        "price": "₹5,656",
+        "cta": "Get Started",
+        "popular": false
+      },
+      {
+        "name": "3 Month Coaching",
+        "sessions": "12 sessions (weekly)",
+        "duration": "40 min each",
+        "price": "₹14,999",
+        "cta": "Get Started",
+        "popular": true
+      },
+      {
+        "name": "6 Month Coaching",
+        "sessions": "24 sessions (weekly)",
+        "duration": "40 min each",
+        "price": "₹26,999",
+        "cta": "Get Started",
+        "popular": false
+      }
+    ]
+  },
+  "packages": {
+    "badge": "Services",
+    "headline": "Choose Your Path",
+    "items": [
+      {
+        "name": "Clarity Call",
+        "price": "₹333",
+        "duration": "40 minutes",
+        "popular": false,
+        "features": [
+          "Understand your emotional patterns",
+          "Safe space to share freely",
+          "Get clarity on your next step"
+        ],
+        "cta": "Book Now",
+        "link": "/clarity-call"
+      },
+      {
+        "name": "1-on-1 Coaching",
+        "tag": "Personalized healing journey",
+        "popular": true,
+        "features": [
+          "Deep personalized sessions",
+          "Custom healing plan",
+          "Ongoing support & accountability"
+        ],
+        "cta": "Explore Programs",
+        "link": "/one-on-one"
+      }
+    ],
+    "finalCTA": {
+      "headline": "Your healing is an investment, not an expense.",
+      "subheadline": "Start where you feel ready.",
+      "button": "Book a Call"
+    }
+  },
+  "testimonials": {
+    "badge": "Testimonials",
+    "headline": "Real Transformations, Real Stories",
+    "items": [
+      {
+        "quote": "I stopped overthinking every message. I finally feel calm and secure in my relationship.",
+        "name": "Client 1",
+        "service": "Relationship Coaching",
+        "image": "https://i.pravatar.cc/150?u=c1"
+      },
+      {
+        "quote": "I realized my patterns, and for the first time, I chose differently.",
+        "name": "Client 2",
+        "service": "Clarity Session",
+        "image": "https://i.pravatar.cc/150?u=c2"
+      },
+      {
+        "quote": "This work changed how I see myself. Everything else followed.",
+        "name": "Client 3",
+        "service": "Deep Healing Program",
+        "image": "https://i.pravatar.cc/150?u=c3"
+      }
+    ],
+    "finalCTA": {
+      "headline": "You could be the next success story.",
+      "button": "Start Your Journey"
+    }
+  },
+  "contact": {
+    "badge": "Contact",
+    "headline": "Let's Connect",
+    "subheadline": "Have questions or not sure where to start? Reach out — we're here to help.",
+    "details": {
+      "email": "contact@lifecoachbysukeshi.com",
+      "phone": "+91 XXXXXXXXXX",
+      "location": "Jaipur, India",
+      "instagram": "https://instagram.com/lifecoach_sukeeshi"
+    },
+    "form": {
+      "fields": ["Full Name", "Email", "Phone", "Message"],
+      "cta": "Send Message"
+    }
+  },
+  "navigation": [
+    { "label": "Home", "href": "/" },
+    { "label": "About", "href": "/about" },
+    { "label": "Services", "href": "/services" },
+    { "label": "Book a Call", "href": "/clarity-call" },
+    { "label": "Contact", "href": "/contact" }
+  ],
+  "footer": {
+    "columns": [
+      {
+        "title": "Quick Links",
+        "links": ["Home", "About", "Services", "Contact"]
+      },
+      {
+        "title": "Services",
+        "links": ["Relationship Coaching", "Parenting Course", "Book a Call"]
+      },
+      {
+        "title": "Contact",
+        "links": ["Email", "WhatsApp", "Location: Jaipur, India"]
+      }
+    ],
+    "copyright": "© 2026 Life Coach by Sukeeshi. All rights reserved."
+  },
+  "parenting": {
+    "badge": "Parenting Course",
+    "headline": "Transform Your Parenting From Within",
+    "subheadline": "Build a deeper connection with your child by healing yourself first.",
+    "description": "A self-paced course designed to help you become the parent you always wanted to be.",
+    "price": "₹4,999",
+    "originalPrice": "₹7,999",
+    "modules": [
+      { "number": "01", "title": "Understanding Your Parenting Style" },
+      { "number": "02", "title": "Healing Your Inner Child" },
+      { "number": "03", "title": "Emotional Regulation for Parents" },
+      { "number": "04", "title": "Setting Healthy Boundaries" },
+      { "number": "05", "title": "Conscious Communication" },
+      { "number": "06", "title": "Building Secure Attachment" },
+      { "number": "07", "title": "Managing Triggers & Reactions" },
+      { "number": "08", "title": "Creating a Nurturing Environment" }
+    ],
+    "benefits": [
+      "Self-paced — learn at your own speed",
+      "Lifetime access to all modules",
+      "Practical exercises after each module",
+      "Private community support"
+    ],
+    "cta": "Enroll Now"
+  }
+}
