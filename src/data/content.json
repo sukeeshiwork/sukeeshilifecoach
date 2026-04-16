@@ -11,7 +11,7 @@
     "headline": "Transform Your Relationships by Healing Yourself First",
     "subheadline": "Break toxic patterns, build emotional security, and create the life you truly deserve.",
     "ctaPrimary": "Book a Call",
-    "ctaSecondary": "Start Your Healing Journey"
+    "ctaSecondary": "Start Your Journey"
   },
   "whoThisIsFor": {
     "badge": "Who This Is For",
@@ -19,13 +19,13 @@
     "points": [
       "Feel anxious or insecure",
       "Overthink texts, silence, or emotional distance",
-      "Struggle with self-worth or fear of abandonment",
+      "Struggle with self-doubt or fear of abandonment",
       "Keep attracting the same painful patterns"
     ]
   },
   "whatYoullExperience": {
     "badge": "What You'll Experience",
-    "headline": "Your Life After Healing",
+    "headline": "Your Life After Coaching",
     "points": [
       { "title": "Emotional Clarity", "text": "Instead of confusion and mental fog" },
       { "title": "Confident Communication", "text": "Speak your truth clearly in life and love" },
@@ -224,7 +224,7 @@
     ],
     "finalCTA": {
       "headline": "Your healing is an investment, not an expense.",
-      "subheadline": "Start where you feel ready.",
+      "subheadline": "Start Right Now.",
       "button": "Book a Call"
     }
   },

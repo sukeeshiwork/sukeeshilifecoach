@@ -21,7 +21,7 @@ const OneOnOne = () => {
       name: "3 Month Coaching",
       sessions: "12 sessions (weekly)",
       duration: "40 min each",
-      price: "₹9,999",
+      price: "₹15,999",
       cta: "Get Started",
       popular: true
     },
@@ -29,7 +29,7 @@ const OneOnOne = () => {
       name: "6 Month Coaching",
       sessions: "24 sessions (weekly)",
       duration: "40 min each",
-      price: "₹15,999",
+      price: "₹30,000",
       cta: "Get Started",
       popular: false
     }

@@ -248,7 +248,7 @@ const Home = () => {
   const experienceData = [
     { icon: <Sparkles size={22} />, title: 'Emotional Clarity', text: 'Instead of confusion and mental fog' },
     { icon: <MessageCircle size={22} />, title: 'Confident Communication', text: 'Speak your truth clearly in life and love' },
-    { icon: <Heart size={22} />, title: 'Deep Self-Worth', text: 'Inner stability that no one can shake' },
+    { icon: <Heart size={22} />, title: 'Deep Self-Doubt', text: 'Inner stability that no one can shake' },
     { icon: <Users size={22} />, title: 'Secure Relationships', text: 'Healthier, peaceful connections' },
   ];
 
@@ -394,7 +394,7 @@ const Home = () => {
               {/* Clarity Call */}
               <div className="glass-card offer-card" style={{ padding: '40px', display: 'flex', flexDirection: 'column' }}>
                 <h3 style={{ fontSize: '28px', marginBottom: '8px', color: '#1A1A1A' }}>Clarity Call</h3>
-                <p style={{ color: '#E8841A', fontWeight: 600, marginBottom: '20px' }}>₹333 — 40 minutes</p>
+                <p style={{ color: '#E8841A', fontWeight: 600, marginBottom: '20px' }}>₹333</p>
                 <div className="feature-list" style={{ marginBottom: '40px', flexGrow: 1 }}>
                   {["Understand your emotional patterns", "Safe space to share freely", "Get clarity on your next step"].map((f, i) => (
                     <div key={i} className="feature-item">
@@ -411,9 +411,9 @@ const Home = () => {
               <div className="glass-card offer-card featured" style={{ padding: '40px', display: 'flex', flexDirection: 'column' }}>
                 <div className="popular-badge">POPULAR</div>
                 <h3 style={{ fontSize: '28px', marginBottom: '8px', color: '#1A1A1A' }}>1-on-1 Coaching</h3>
-                <p style={{ color: '#E8841A', fontWeight: 600, marginBottom: '20px' }}>Personalized healing journey</p>
+                <p style={{ color: '#E8841A', fontWeight: 600, marginBottom: '20px' }}>Personalized Coaching</p>
                 <div className="feature-list" style={{ marginBottom: '40px', flexGrow: 1 }}>
-                  {["Deep personalized sessions", "Custom healing plan", "Ongoing support & accountability"].map((f, i) => (
+                  {["Deep personalized sessions", "Customized plan", "Ongoing support & accountability"].map((f, i) => (
                     <div key={i} className="feature-item">
                       <span className="feature-dot">✓</span> {f}
                     </div>
@@ -445,7 +445,7 @@ const Home = () => {
               {[
                 { num: "1", title: "Book a Call", desc: "Start with a safe conversation" },
                 { num: "2", title: "Identify Patterns", desc: "Understand your core emotional triggers" },
-                { num: "3", title: "Start Your Journey", desc: "Begin your personalized healing plan" }
+                { num: "3", title: "Start Your Journey", desc: "Begin your personalized plan" }
               ].map((step, idx) => (
                 <React.Fragment key={idx}>
                   <div className="step-item">
@@ -476,7 +476,7 @@ const Home = () => {
         
             <div style={{ textAlign: 'center', marginTop: '60px' }}>
               <NavLink to="/clarity-call">
-                <button className="btn-secondary">Start Your Own Journey</button>
+                <button className="btn-secondary">Start Your Journey With Us</button>
               </NavLink>
             </div>
           </div>

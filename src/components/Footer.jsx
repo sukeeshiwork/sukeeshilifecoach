@@ -140,7 +140,7 @@ const Footer = ({ content }) => {
             <div className="footer-links">
               <a href="mailto:contact@lifecoachbysukeshi.com" className="footer-link">Email</a>
               <a href="#" className="footer-link">WhatsApp</a>
-              <span className="footer-link">Jaipur, India</span>
+              <span className="footer-link">Ahmedabad, Gujarat, India</span>
             </div>
           </div>
         </div>
