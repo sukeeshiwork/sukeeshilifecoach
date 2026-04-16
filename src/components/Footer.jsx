@@ -1,4 +1,4 @@
-import { FaInstagram, FaYoutube, FaWhatsapp } from 'react-icons/fa';
+import { FaInstagram, FaYoutube, FaWhatsapp, FaFacebook } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import { Heart } from 'lucide-react';
 import useWindowSize from '../hooks/useWindowSize';
@@ -113,6 +113,7 @@ const Footer = ({ content }) => {
               <a href="#" className="social-link"><FaInstagram /></a>
               <a href="#" className="social-link"><FaYoutube /></a>
               <a href="#" className="social-link"><FaWhatsapp /></a>
+              <a href="#" className="social-link"><FaFacebook /></a>
             </div>
           </div>
 

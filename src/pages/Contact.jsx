@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaInstagram, FaYoutube, FaWhatsapp, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaInstagram, FaYoutube, FaWhatsapp, FaEnvelope, FaMapMarkerAlt ,FaFacebook} from 'react-icons/fa';
 import useWindowSize from '../hooks/useWindowSize';
 
 const Contact = () => {
@@ -28,6 +28,14 @@ const Contact = () => {
       description: 'For detailed queries and collaboration',
       btnText: 'Email Us',
       link: 'mailto:contact@lifecoachbysukeshi.com',
+      isPrimary: false
+    },
+    {
+      icon: <FaFacebook />,
+      title: 'Facebook',
+      description: 'Follow for daily insights on relationships & healing',
+      btnText: 'Follow Us',
+      link: 'https://facebook.com/lifecoach_sukeeshi',
       isPrimary: false
     }
   ];
