@@ -16,6 +16,8 @@ import OneOnOne from './pages/OneOnOne';
 import OneOnOneForm from './pages/OneOnOneForm';
 import content from './data/content.json';
 import useWindowSize from './hooks/useWindowSize';
+import Ebooks from './pages/Ebooks';
+import Success from './pages/Success';
 
 function App() {
   useWindowSize();
@@ -83,7 +85,9 @@ function App() {
         <Route path="/one-on-one/form" element={<OneOnOneForm />} />
         <Route path="/parenting" element={<Parenting />} />
         <Route path="/clarity-call" element={<ClarityCall />} />
+        <Route path="/ebooks" element={<Ebooks />} />
         <Route path="/clarity-call/form" element={<ClarityCallForm />} />
+        <Route path="/success" element={<Success />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>

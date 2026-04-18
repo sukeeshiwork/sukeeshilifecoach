@@ -2,229 +2,355 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ChevronRight, ShieldCheck } from 'lucide-react';
 import GlassCard from '../components/GlassCard';
-import useWindowSize from '../hooks/useWindowSize';
+import { saveToSheet, updatePaymentStatus } from '../utils/googleSheet';
+import { initiatePayment } from '../utils/razorpay';
 
 const plans = [
-  { label: '1 Month Coaching — ₹5,656', value: '1 Month Coaching', price: '5,656', sessions: '4 sessions (weekly)' },
-  { label: '3 Month Coaching — ₹9,999', value: '3 Month Coaching', price: '9,999', sessions: '12 sessions (weekly)' },
-  { label: '6 Month Coaching — ₹15,999', value: '6 Month Coaching', price: '15,999', sessions: '24 sessions (weekly)' },
+  { label: '1 Month Coaching — ₹5,656', value: '1 Month Coaching', price: '5,656', priceInPaise: 565600 },
+  { label: '3 Month Coaching — ₹9,999', value: '3 Month Coaching', price: '9,999', priceInPaise: 999900 },
+  { label: '6 Month Coaching — ₹15,999', value: '6 Month Coaching', price: '15,999', priceInPaise: 1599900 },
 ];
 
 const OneOnOneForm = () => {
-  const { isMobile, isTablet } = useWindowSize();
   const location = useLocation();
+  const navigate = useNavigate();
   const passed = location.state;
 
-  // Pre-select plan from navigation state
   const defaultPlan = passed?.plan || '1 Month Coaching';
   const [selectedPlan, setSelectedPlan] = useState(defaultPlan);
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    whatsapp: '',
+    struggling: '',
+    description: ''
+  });
 
-  // Get current plan details
-  const currentPlan = plans.find(p => p.value === selectedPlan);
+  const currentPlan = plans.find(p => p.value === selectedPlan) || plans[0];
 
-  const handleSubmit = (e) => {
+  const struggleOptions = [
+    "Relationship Issues",
+    "Self-Worth",
+    "Toxic Patterns",
+    "Fear of Abandonment",
+    "Parenting Challenges",
+    "Other"
+  ];
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(`Redirecting to Razorpay for ₹${currentPlan.price}...`);
+    setLoading(true);
+
+    try {
+      // Step 1 — Save to Sheet with Pending
+      const sheetResult = await saveToSheet('1-on-1 Coaching', {
+        name: formData.name,
+        email: formData.email,
+        whatsapp: formData.whatsapp,
+        plan: currentPlan.value,
+        price: `₹${currentPlan.price}`,
+        struggling: formData.struggling,
+        description: formData.description
+      });
+
+      const rowIndex = sheetResult?.rowIndex;
+
+      // Step 2 — Razorpay
+      await initiatePayment({
+        amount: currentPlan.priceInPaise,
+        name: formData.name,
+        email: formData.email,
+        contact: formData.whatsapp,
+        description: `${currentPlan.value} — ₹${currentPlan.price}`,
+        onSuccess: async (paymentId) => {
+          // Step 3 — Update sheet
+          if (rowIndex) {
+            await updatePaymentStatus('1-on-1 Coaching', rowIndex, paymentId);
+          }
+          // Step 4 — Success page
+          navigate('/success', {
+            state: {
+              name: formData.name,
+              type: currentPlan.value,
+              amount: `₹${currentPlan.price}`,
+              paymentId: paymentId
+            }
+          });
+        },
+        onFailure: () => {
+          setLoading(false);
+          alert('Payment cancelled. Your details have been saved. Please try again.');
+        }
+      });
+
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+      alert('Something went wrong. Please try again.');
+    }
   };
 
   const inputStyle = {
-    background: 'rgba(255, 255, 255, 0.8)',
-    border: '1px solid rgba(232, 132, 26, 0.2)',
-    padding: '16px',
+    padding: '14px 16px',
     borderRadius: '12px',
-    color: '#1A1A1A',
+    border: '1px solid rgba(250, 168, 25, 0.3)',
+    background: 'rgba(255,255,255,0.8)',
     fontSize: '16px',
+    outline: 'none',
+    color: '#333333',
     width: '100%',
-    fontFamily: 'inherit',
-    outline: 'none'
+    fontFamily: 'Poppins, sans-serif'
   };
 
   return (
-    <div className="one-on-one-page" style={{
-      paddingTop: '120px',
-      paddingBottom: isMobile ? '40px' : '80px',
-      minHeight: '100vh',
-      background: 'transparent',
-      position: 'relative',
-      zIndex: 1
-    }}>
-      <div className="container">
-        <div style={{ maxWidth: '600px', margin: '0 auto' }}>
+    <>
+      {/* Loading Overlay — payment processing */}
+      {loading && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          background: 'rgba(255, 251, 240, 0.95)',
+          backdropFilter: 'blur(8px)',
+          zIndex: 99999,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '24px'
+        }}>
+          {/* Spinner */}
+          <div style={{
+            width: '64px',
+            height: '64px',
+            borderRadius: '50%',
+            border: '4px solid rgba(250,168,25,0.2)',
+            borderTop: '4px solid #FAA819',
+            animation: 'spin 1s linear infinite'
+          }} />
 
-          {/* Header — dynamic based on selected plan */}
-          <div style={{ textAlign: 'center', marginBottom: isMobile ? '32px' : '48px' }}>
-            <span className="badge">1-on-1 Coaching</span>
-            <h1 style={{ 
-              fontSize: isMobile ? '28px' : '36px', 
-              marginTop: '16px', 
-              color: '#1A1A1A' 
-            }}>
-              {currentPlan.value}
-            </h1>
-            <p style={{ color: '#E8841A', fontWeight: 600, marginTop: '8px', fontSize: isMobile ? '16px' : '18px' }}>
-              {currentPlan.sessions} • 40 min each
-            </p>
-            {/* Dynamic price pill */}
-            <div style={{
-              display: 'inline-block',
-              marginTop: '16px',
-              padding: isMobile ? '8px 20px' : '10px 28px',
-              background: 'linear-gradient(135deg, #FAA819, #E8841A)',
-              borderRadius: '50px',
-              color: '#1A0D00',
-              fontWeight: 700,
-              fontSize: isMobile ? '18px' : '22px'
-            }}>
-              ₹{currentPlan.price}
-            </div>
+          <h2 style={{
+            fontSize: '24px',
+            color: '#333333',
+            textAlign: 'center',
+            fontWeight: 700
+          }}>
+            Payment is Processing...
+          </h2>
+
+          <p style={{
+            fontSize: '16px',
+            color: '#666',
+            textAlign: 'center',
+            lineHeight: 1.7,
+            maxWidth: '320px'
+          }}>
+            Please do not press Back or Refresh.<br />
+            This will only take a few seconds.
+          </p>
+
+          {/* Animated dots */}
+          <div style={{
+            display: 'flex',
+            gap: '8px'
+          }}>
+            {[0, 1, 2].map(i => (
+              <div key={i} style={{
+                width: '10px',
+                height: '10px',
+                borderRadius: '50%',
+                background: '#FAA819',
+                animation: `bounce 1.2s ease-in-out ${i * 0.2}s infinite`
+              }} />
+            ))}
           </div>
 
-          <GlassCard className="form-card" style={{
-            padding: '48px',
-            backdropFilter: 'blur(32px)',
-            background: 'rgba(255, 255, 255, 0.6)'
-          }}>
-            <form onSubmit={handleSubmit} style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '28px'
-            }}>
+          <style>{`
+      @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      @keyframes bounce {
+        0%, 100% { transform: translateY(0); opacity: 0.4; }
+        50% { transform: translateY(-10px); opacity: 1; }
+      }
+    `}</style>
+        </div>
+      )}
+      <div style={{
+        paddingTop: '140px',
+        paddingBottom: '80px',
+        minHeight: '100vh',
+        background: 'transparent',
+        position: 'relative',
+        zIndex: 1
+      }}>
+        <div className="container">
+          <div style={{ maxWidth: '600px', margin: '0 auto' }}>
 
-              {/* Plan Selector — dropdown */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <label style={{ fontSize: '14px', color: '#1A1A1A', fontWeight: 600 }}>
-                  Select Your Plan
-                </label>
-                <select
-                  value={selectedPlan}
-                  onChange={(e) => setSelectedPlan(e.target.value)}
+            {/* Dynamic Header */}
+            <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+              <span className="badge">1-on-1 Coaching</span>
+              <h1 style={{
+                fontSize: '28px',
+                marginTop: '16px',
+                color: '#333333'
+              }}>
+                {currentPlan.value}
+              </h1>
+              <div style={{
+                display: 'inline-block',
+                marginTop: '12px',
+                padding: '8px 24px',
+                background: 'linear-gradient(135deg, #FAA819, #E8841A)',
+                borderRadius: '50px',
+                color: '#1A0D00',
+                fontWeight: 700,
+                fontSize: '20px'
+              }}>
+                ₹{currentPlan.price}
+              </div>
+            </div>
+
+            <GlassCard style={{
+              padding: '48px',
+              backdropFilter: 'blur(32px)',
+              background: 'rgba(255,255,255,0.6)'
+            }}>
+              <form onSubmit={handleSubmit} style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '24px'
+              }}>
+
+                {/* Plan Selector */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <label style={{ fontSize: '14px', color: '#333333', fontWeight: 600 }}>
+                    Select Your Plan
+                  </label>
+                  <select
+                    value={selectedPlan}
+                    onChange={e => setSelectedPlan(e.target.value)}
+                    style={{
+                      ...inputStyle,
+                      appearance: 'none',
+                      cursor: 'pointer',
+                      border: '1.5px solid #FAA819',
+                      fontWeight: 600
+                    }}
+                  >
+                    {plans.map((plan, i) => (
+                      <option key={i} value={plan.value}>{plan.label}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <label style={{ fontSize: '14px', color: '#333333', fontWeight: 600 }}>Full Name</label>
+                  <input
+                    required type="text" placeholder="Your Full Name"
+                    value={formData.name}
+                    onChange={e => setFormData({ ...formData, name: e.target.value })}
+                    style={inputStyle}
+                  />
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <label style={{ fontSize: '14px', color: '#333333', fontWeight: 600 }}>Email Address</label>
+                  <input
+                    required type="email" placeholder="your@email.com"
+                    value={formData.email}
+                    onChange={e => setFormData({ ...formData, email: e.target.value })}
+                    style={inputStyle}
+                  />
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <label style={{ fontSize: '14px', color: '#333333', fontWeight: 600 }}>WhatsApp Number</label>
+                  <input
+                    required type="tel" placeholder="+91 98765 43210"
+                    value={formData.whatsapp}
+                    onChange={e => setFormData({ ...formData, whatsapp: e.target.value })}
+                    style={inputStyle}
+                  />
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <label style={{ fontSize: '14px', color: '#333333', fontWeight: 600 }}>
+                    What are you struggling with?
+                  </label>
+                  <select
+                    required
+                    value={formData.struggling}
+                    onChange={e => setFormData({ ...formData, struggling: e.target.value })}
+                    style={{ ...inputStyle, appearance: 'none', cursor: 'pointer' }}
+                  >
+                    <option value="" disabled>Select an option</option>
+                    {struggleOptions.map((opt, i) => (
+                      <option key={i} value={opt}>{opt}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <label style={{ fontSize: '14px', color: '#333333', fontWeight: 600 }}>
+                    Brief Description
+                  </label>
+                  <textarea
+                    required rows="4"
+                    placeholder="Tell us about your current situation..."
+                    value={formData.description}
+                    onChange={e => setFormData({ ...formData, description: e.target.value })}
+                    style={{ ...inputStyle, resize: 'none' }}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="btn-primary"
                   style={{
-                    ...inputStyle,
-                    appearance: 'none',
-                    cursor: 'pointer',
-                    border: '1.5px solid #FAA819',
-                    fontWeight: 600
+                    width: '100%',
+                    padding: '18px',
+                    fontSize: '17px',
+                    fontWeight: 700,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '10px',
+                    opacity: loading ? 0.7 : 1,
+                    cursor: loading ? 'not-allowed' : 'pointer'
                   }}
                 >
-                  {plans.map((plan, i) => (
-                    <option key={i} value={plan.value}>
-                      {plan.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                  {loading ? 'Processing...' : (
+                    <>
+                      Proceed to Payment — ₹{currentPlan.price}
+                      <ChevronRight size={20} />
+                    </>
+                  )}
+                </button>
 
-              {/* Full Name */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <label style={{ fontSize: '14px', color: '#1A1A1A', fontWeight: 600 }}>
-                  Full Name
-                </label>
-                <input
-                  required
-                  type="text"
-                  placeholder="Ex. Priya Sharma"
-                  style={inputStyle}
-                />
-              </div>
-
-              {/* Email */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <label style={{ fontSize: '14px', color: '#1A1A1A', fontWeight: 600 }}>
-                  Email Address
-                </label>
-                <input
-                  required
-                  type="email"
-                  placeholder="Ex. priya@gmail.com"
-                  style={inputStyle}
-                />
-              </div>
-
-              {/* WhatsApp */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <label style={{ fontSize: '14px', color: '#1A1A1A', fontWeight: 600 }}>
-                  WhatsApp Number
-                </label>
-                <input
-                  required
-                  type="tel"
-                  placeholder="Ex. +91 98765 43210"
-                  style={inputStyle}
-                />
-              </div>
-
-              {/* What are you struggling with */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <label style={{ fontSize: '14px', color: '#1A1A1A', fontWeight: 600 }}>
-                  What are you struggling with?
-                </label>
-                <select
-                  required
-                  style={{ ...inputStyle, appearance: 'none', cursor: 'pointer' }}
-                >
-                  <option value="" disabled>Select an option</option>
-                  {[
-                    "Relationship Issues",
-                    "Self-Worth",
-                    "Toxic Patterns",
-                    "Fear of Abandonment",
-                    "Other"
-                  ].map((opt, i) => (
-                    <option key={i} value={opt}>{opt}</option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Message */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <label style={{ fontSize: '14px', color: '#1A1A1A', fontWeight: 600 }}>
-                  Brief description
-                </label>
-                <textarea
-                  required
-                  placeholder="A little bit about your current situation..."
-                  rows="4"
-                  style={{ ...inputStyle, resize: 'none' }}
-                />
-              </div>
-
-              {/* Submit button — price updates dynamically */}
-              <button
-                type="submit"
-                className="btn-primary"
-                style={{
-                  marginTop: '12px',
-                  width: '100%',
-                  fontSize: '18px',
-                  fontWeight: 700,
-                  padding: '20px',
+                <div style={{
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '12px'
-                }}
-              >
-                Proceed to Payment — ₹{currentPlan.price}
-                <ChevronRight size={20} />
-              </button>
+                  gap: '8px',
+                  color: '#666',
+                  fontSize: '13px'
+                }}>
+                  <ShieldCheck size={16} color="#E8841A" />
+                  <span>100% Secure Payment via Razorpay</span>
+                </div>
 
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px',
-                color: '#666666',
-                fontSize: '13px'
-              }}>
-                <ShieldCheck size={16} />
-                <span>Payments are 100% secure via Razorpay</span>
-              </div>
-
-            </form>
-          </GlassCard>
+              </form>
+            </GlassCard>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -1,185 +1,337 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ChevronRight, ShieldCheck } from 'lucide-react';
-import useWindowSize from '../hooks/useWindowSize';
 import GlassCard from '../components/GlassCard';
+import { saveToSheet, updatePaymentStatus } from '../utils/googleSheet';
+import { initiatePayment } from '../utils/razorpay';
 
 const ClarityCallForm = () => {
-  const { isMobile, isTablet } = useWindowSize();
+  const navigate = useNavigate();
   const [charCount, setCharCount] = useState(0);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert('Redirecting to Razorpay for ₹333...');
-  };
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    whatsapp: '',
+    struggling: '',
+    description: ''
+  });
 
   const struggleOptions = [
     "Relationship Issues",
     "Self-Worth",
     "Toxic Patterns",
     "Fear of Abandonment",
+    "Parenting Challenges",
     "Other"
   ];
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      // Step 1 — Save to Google Sheet with Pending status
+      const sheetResult = await saveToSheet('Clarity Call', {
+        name: formData.name,
+        email: formData.email,
+        whatsapp: formData.whatsapp,
+        struggling: formData.struggling,
+        description: formData.description
+      });
+
+      const rowIndex = sheetResult?.rowIndex;
+
+      // Step 2 — Open Razorpay
+      await initiatePayment({
+        amount: 56500, // ₹565 in paise
+        name: formData.name,
+        email: formData.email,
+        contact: formData.whatsapp,
+        description: 'Clarity Call — ₹565',
+        onSuccess: async (paymentId) => {
+          // Step 3 — Update payment status in sheet
+          if (rowIndex) {
+            await updatePaymentStatus('Clarity Call', rowIndex, paymentId);
+          }
+          // Step 4 — Redirect to success
+          navigate('/success', {
+            state: {
+              name: formData.name,
+              type: 'Clarity Call',
+              amount: '₹565',
+              paymentId: paymentId
+            }
+          });
+        },
+        onFailure: () => {
+          setLoading(false);
+          alert('Payment cancelled. Your details have been saved. Please try again.');
+        }
+      });
+
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+      alert('Something went wrong. Please try again.');
+    }
+  };
+
   const inputStyle = {
-    background: 'rgba(255, 255, 255, 0.8)',
-    border: '1px solid rgba(232, 132, 26, 0.2)',
-    padding: '16px',
+    padding: '14px 16px',
     borderRadius: '12px',
-    color: '#1A1A1A',
+    border: '1px solid rgba(250, 168, 25, 0.3)',
+    background: 'rgba(255,255,255,0.8)',
     fontSize: '16px',
+    outline: 'none',
+    color: '#333333',
     width: '100%',
-    fontFamily: 'inherit',
-    outline: 'none'
+    fontFamily: 'Poppins, sans-serif'
   };
 
   return (
-    <div style={{
-      paddingTop: '120px',
-      paddingBottom: '80px',
-      minHeight: '100vh',
-      background: 'transparent',
-      position: 'relative',
-      zIndex: 1
-    }}>
-      <div className="container">
-        <div style={{ maxWidth: '600px', margin: '0 auto' }}>
+    <>
+      {/* Loading Overlay — payment processing */}
+      {loading && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          background: 'rgba(255, 251, 240, 0.95)',
+          backdropFilter: 'blur(8px)',
+          zIndex: 99999,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '24px'
+        }}>
+          {/* Spinner */}
+          <div style={{
+            width: '64px',
+            height: '64px',
+            borderRadius: '50%',
+            border: '4px solid rgba(250,168,25,0.2)',
+            borderTop: '4px solid #FAA819',
+            animation: 'spin 1s linear infinite'
+          }} />
 
-          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-            <span className="badge">Booking Form</span>
-            <h1 style={{ fontSize: '36px', marginTop: '16px', color: '#1A1A1A' }}>
-              Complete Your Booking
-            </h1>
-            <p style={{ color: '#666666', marginTop: '12px' }}>
-              Fill in your details to secure your 40-minute Clarity Call.
-            </p>
+          <h2 style={{
+            fontSize: '24px',
+            color: '#333333',
+            textAlign: 'center',
+            fontWeight: 700
+          }}>
+            Payment is Processing...
+          </h2>
+
+          <p style={{
+            fontSize: '16px',
+            color: '#666',
+            textAlign: 'center',
+            lineHeight: 1.7,
+            maxWidth: '320px'
+          }}>
+            Please do not press Back or Refresh.<br />
+            This will only take a few seconds.
+          </p>
+
+          {/* Animated dots */}
+          <div style={{
+            display: 'flex',
+            gap: '8px'
+          }}>
+            {[0, 1, 2].map(i => (
+              <div key={i} style={{
+                width: '10px',
+                height: '10px',
+                borderRadius: '50%',
+                background: '#FAA819',
+                animation: `bounce 1.2s ease-in-out ${i * 0.2}s infinite`
+              }} />
+            ))}
           </div>
 
-          <GlassCard className="form-card" style={{
-            padding: isMobile ? '24px 20px' : '48px',
-            backdropFilter: 'blur(32px)',
-            background: 'rgba(255, 255, 255, 0.6)'
-          }}>
-            <form onSubmit={handleSubmit} style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '28px'
+          <style>{`
+      @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      @keyframes bounce {
+        0%, 100% { transform: translateY(0); opacity: 0.4; }
+        50% { transform: translateY(-10px); opacity: 1; }
+      }
+    `}</style>
+        </div>
+      )}
+
+
+      <div style={{
+        paddingTop: '140px',
+        paddingBottom: '80px',
+        minHeight: '100vh',
+        background: 'transparent',
+        position: 'relative',
+        zIndex: 1
+      }}>
+        <div className="container">
+          <div style={{ maxWidth: '600px', margin: '0 auto' }}>
+
+            <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+              <span className="badge">Booking Form</span>
+              <h1 style={{
+                fontSize: '32px',
+                marginTop: '16px',
+                color: '#333333'
+              }}>
+                Complete Your Booking
+              </h1>
+              <p style={{ color: '#666', marginTop: '12px' }}>
+                Fill in your details to secure your Clarity Call — ₹565
+              </p>
+            </div>
+
+            <GlassCard style={{
+              padding: '48px',
+              backdropFilter: 'blur(32px)',
+              background: 'rgba(255,255,255,0.6)'
             }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <label style={{ fontSize: '14px', color: '#1A1A1A', fontWeight: 600 }}>
-                  Full Name
-                </label>
-                <input
-                  required
-                  type="text"
-                  placeholder="Ex. Priya Sharma"
-                  style={inputStyle}
-                />
-              </div>
+              <form onSubmit={handleSubmit} style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '24px'
+              }}>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <label style={{ fontSize: '14px', color: '#1A1A1A', fontWeight: 600 }}>
-                  Email Address
-                </label>
-                <input
-                  required
-                  type="email"
-                  placeholder="Ex. priya@gmail.com"
-                  style={inputStyle}
-                />
-              </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <label style={{ fontSize: '14px', color: '#333333', fontWeight: 600 }}>
+                    Full Name
+                  </label>
+                  <input
+                    required
+                    type="text"
+                    placeholder="Your Full Name"
+                    value={formData.name}
+                    onChange={e => setFormData({ ...formData, name: e.target.value })}
+                    style={inputStyle}
+                  />
+                </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <label style={{ fontSize: '14px', color: '#1A1A1A', fontWeight: 600 }}>
-                  WhatsApp Number
-                </label>
-                <input
-                  required
-                  type="tel"
-                  placeholder="Ex. +91 98765 43210"
-                  style={inputStyle}
-                />
-              </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <label style={{ fontSize: '14px', color: '#333333', fontWeight: 600 }}>
+                    Email Address
+                  </label>
+                  <input
+                    required
+                    type="email"
+                    placeholder="your@email.com"
+                    value={formData.email}
+                    onChange={e => setFormData({ ...formData, email: e.target.value })}
+                    style={inputStyle}
+                  />
+                </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <label style={{ fontSize: '14px', color: '#1A1A1A', fontWeight: 600 }}>
-                  What are you struggling with?
-                </label>
-                <select
-                  required
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <label style={{ fontSize: '14px', color: '#333333', fontWeight: 600 }}>
+                    WhatsApp Number
+                  </label>
+                  <input
+                    required
+                    type="tel"
+                    placeholder="+91 98765 43210"
+                    value={formData.whatsapp}
+                    onChange={e => setFormData({ ...formData, whatsapp: e.target.value })}
+                    style={inputStyle}
+                  />
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <label style={{ fontSize: '14px', color: '#333333', fontWeight: 600 }}>
+                    What are you struggling with?
+                  </label>
+                  <select
+                    required
+                    value={formData.struggling}
+                    onChange={e => setFormData({ ...formData, struggling: e.target.value })}
+                    style={{ ...inputStyle, appearance: 'none', cursor: 'pointer' }}
+                  >
+                    <option value="" disabled>Select an option</option>
+                    {struggleOptions.map((opt, i) => (
+                      <option key={i} value={opt}>{opt}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <label style={{ fontSize: '14px', color: '#333333', fontWeight: 600 }}>
+                      Brief Description
+                    </label>
+                    <span style={{
+                      fontSize: '12px',
+                      color: charCount > 200 ? '#EF4444' : '#888'
+                    }}>
+                      {charCount}/200
+                    </span>
+                  </div>
+                  <textarea
+                    required
+                    maxLength={200}
+                    rows="4"
+                    placeholder="Tell us a little about your current situation..."
+                    value={formData.description}
+                    onChange={e => {
+                      setFormData({ ...formData, description: e.target.value });
+                      setCharCount(e.target.value.length);
+                    }}
+                    style={{ ...inputStyle, resize: 'none' }}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="btn-primary"
                   style={{
-                    ...inputStyle,
-                    appearance: 'none',
-                    cursor: 'pointer'
+                    width: '100%',
+                    padding: '18px',
+                    fontSize: '17px',
+                    fontWeight: 700,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '10px',
+                    opacity: loading ? 0.7 : 1,
+                    cursor: loading ? 'not-allowed' : 'pointer'
                   }}
                 >
-                  <option value="" disabled>Select an option</option>
-                  {struggleOptions.map((opt, i) => (
-                    <option key={i} value={opt}>{opt}</option>
-                  ))}
-                </select>
-              </div>
+                  {loading ? 'Processing...' : (
+                    <>
+                      Proceed to Payment — ₹565
+                      <ChevronRight size={20} />
+                    </>
+                  )}
+                </button>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <label style={{ fontSize: '14px', color: '#1A1A1A', fontWeight: 600 }}>
-                    Brief description
-                  </label>
-                  <span style={{
-                    fontSize: '12px',
-                    color: charCount > 200 ? '#EF4444' : '#888888'
-                  }}>
-                    {charCount}/200
-                  </span>
-                </div>
-                <textarea
-                  required
-                  maxLength={200}
-                  placeholder="A little bit about your current situation..."
-                  rows="4"
-                  onChange={(e) => setCharCount(e.target.value.length)}
-                  style={{
-                    ...inputStyle,
-                    resize: 'none'
-                  }}
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="btn-primary"
-                style={{
-                  marginTop: '12px',
-                  width: '100%',
-                  fontSize: '18px',
-                  fontWeight: 700,
-                  padding: '20px',
+                <div style={{
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '12px'
-                }}
-              >
-                Proceed to Payment — ₹333
-                <ChevronRight size={20} />
-              </button>
+                  gap: '8px',
+                  color: '#666',
+                  fontSize: '13px'
+                }}>
+                  <ShieldCheck size={16} color="#E8841A" />
+                  <span>100% Secure Payment via Razorpay</span>
+                </div>
 
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px',
-                color: '#666666',
-                fontSize: '13px'
-              }}>
-                <ShieldCheck size={16} />
-                <span>Payments are 100% secure via Razorpay</span>
-              </div>
-
-            </form>
-          </GlassCard>
+              </form>
+            </GlassCard>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

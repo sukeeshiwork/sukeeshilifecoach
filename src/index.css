@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
 :root {
   /* Backgrounds */
@@ -44,8 +44,8 @@ html, body {
 body {
   background-color: #FFFBF0;
   position: relative;
-  color: var(--text-secondary);
-  font-family: 'Inter', sans-serif;
+  color: #333333;
+  font-family: 'Poppins', sans-serif;
   overflow-x: hidden !important;
   line-height: 1.6;
   min-height: 100vh;
@@ -62,12 +62,12 @@ section, nav, footer, .whatsapp-float {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Playfair Display', serif;
-  color: var(--text-primary);
+  font-family: 'Poppins', sans-serif;
+  color: #333333;
 }
 
 p, li, span, button {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 a {

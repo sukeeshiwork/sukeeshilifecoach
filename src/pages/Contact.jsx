@@ -81,7 +81,7 @@ const Contact = () => {
         {/* Contact Cards Grid */}
         <div className="contact-cards-grid" style={{
           display: 'grid',
-          gridTemplateColumns: isTablet ? '1fr' : 'repeat(3, 1fr)',
+          gridTemplateColumns: isTablet ? '1fr' : 'repeat(2, 1fr)',
           gap: isMobile ? '16px' : '30px',
           marginBottom: isMobile ? '40px' : '80px'
         }}>

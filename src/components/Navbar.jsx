@@ -167,8 +167,8 @@ const Navbar = () => {
           <div className="nav-links">
             <NavLink to="/" className="nav-link" end>Home</NavLink>
             <NavLink to="/about" className="nav-link">About</NavLink>
-            
-            <a 
+
+            <a
               href="#services"
               className="nav-link"
               onClick={handleServicesClick}
@@ -176,6 +176,7 @@ const Navbar = () => {
               Services
             </a>
             <NavLink to="/parenting" className="nav-link">Parenting</NavLink>
+            <NavLink to="/ebooks" className="nav-link">Ebooks</NavLink>
             <NavLink to="/contact" className="nav-link">Contact</NavLink>
             <NavLink to="/clarity-call" className="btn-primary nav-cta">
               Book Call
@@ -219,7 +220,7 @@ const Navbar = () => {
             >
               About
             </NavLink>
-            
+
             <a
               href="#services"
               onClick={handleServicesClick}
@@ -233,6 +234,13 @@ const Navbar = () => {
               style={{ fontSize: '22px', fontWeight: 600, color: '#1A1A1A', textDecoration: 'none' }}
             >
               Parenting
+            </NavLink>
+            <NavLink
+              to="/ebooks"
+              onClick={() => setMenuOpen(false)}
+              style={{ fontSize: '22px', fontWeight: 600, color: '#1A1A1A', textDecoration: 'none' }}
+            >
+              Ebooks
             </NavLink>
             <NavLink
               to="/contact"
