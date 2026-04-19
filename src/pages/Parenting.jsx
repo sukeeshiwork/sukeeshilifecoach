@@ -18,13 +18,20 @@ const Parenting = () => {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 16px;
+      align-items: stretch;
+    }
+    @media (max-width: 1024px) {
+      .bonus-grid { 
+        grid-template-columns: repeat(2, 1fr) !important; 
+      }
     }
     @media (max-width: 768px) {
       .modules-grid { grid-template-columns: 1fr !important; }
-      .bonus-grid { grid-template-columns: 1fr !important; }
     }
-    @media (max-width: 1024px) {
-      .bonus-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    @media (max-width: 640px) {
+      .bonus-grid { 
+        grid-template-columns: 1fr !important; 
+      }
     }
   `;
 
@@ -78,9 +85,9 @@ const Parenting = () => {
 
       {/* HERO */}
       <section style={{
-        paddingTop: isMobile ? '90px' : '120px',
-        paddingBottom: isMobile ? '40px' : '60px',
-        marginTop: '60px',
+        paddingTop: '120px', 
+        paddingBottom: isMobile ? '40px' : '80px',
+        marginTop: isMobile ? '120px' : '0',
         background: 'transparent',
         textAlign: 'center'
       }}>
@@ -253,7 +260,9 @@ const Parenting = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '10px',
-                borderLeft: '3px solid #FAA819'
+                borderLeft: '3px solid #FAA819',
+                height: '100%',
+                boxSizing: 'border-box'
               }}>
                 <div style={{ fontSize: '32px' }}>{item.emoji}</div>
                 <h3 style={{
@@ -300,7 +309,8 @@ const Parenting = () => {
             gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
             gap: '16px',
             maxWidth: '1000px',
-            margin: '0 auto'
+            margin: '0 auto',
+            alignItems: 'stretch'
           }}>
             {extras.map((item, i) => (
               <div key={i} style={{
@@ -308,7 +318,9 @@ const Parenting = () => {
                 padding: isMobile ? '16px 20px' : '20px 24px',
                 display: 'flex',
                 gap: '14px',
-                alignItems: 'flex-start'
+                alignItems: 'flex-start',
+                height: '100%',
+                boxSizing: 'border-box'
               }}>
                 <span style={{ fontSize: '24px', flexShrink: 0 }}>{item.emoji}</span>
                 <div>

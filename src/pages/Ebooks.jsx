@@ -25,7 +25,7 @@ const Ebooks = () => {
   return (
     <div className="about-page">
       <section style={{
-        paddingTop: isMobile ? '80px' : '140px',
+        paddingTop: '120px',
         paddingBottom: isMobile ? '40px' : '80px',
         marginTop: isMobile ? '120px' : '0',
         background: 'transparent'

@@ -209,7 +209,7 @@ const Home = () => {
 
       /* WHAT YOU'LL EXPERIENCE */
       .experience-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-columns: 1fr !important;
         gap: 10px !important;
       }
 
@@ -355,7 +355,7 @@ const Home = () => {
 
             <div className="experience-grid" style={{
               display: 'grid',
-              gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : isTablet ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+              gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
               gap: isMobile ? '10px' : '14px',
               alignItems: 'stretch'
             }}>
