@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Infinity } from 'lucide-react';
 import useWindowSize from '../hooks/useWindowSize';
 
 const Navbar = () => {
@@ -62,7 +62,7 @@ const Navbar = () => {
       height: 60px;
     }
     .logo {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Poppins', sans-serif;
       font-size: 24px;
       font-weight: 700;
       color: #1A1A1A;
@@ -158,7 +158,22 @@ const Navbar = () => {
       <div className="nav-container">
 
         {/* Logo */}
-        <NavLink to="/" className="logo">
+        <NavLink to="/" className="logo" style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          fontFamily: "'Poppins', sans-serif"
+        }}>
+          <Infinity 
+            size={28}
+            style={{
+              background: 'linear-gradient(135deg, #FAA819, #E8841A)',
+              borderRadius: '50%',
+              padding: '4px',
+              color: '#1A0D00',
+              flexShrink: 0
+            }}
+          />
           Sukeeshi
         </NavLink>
 

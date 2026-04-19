@@ -1,6 +1,6 @@
 import { FaInstagram, FaYoutube, FaWhatsapp, FaFacebook } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
-import { Heart } from 'lucide-react';
+import { Heart, Infinity } from 'lucide-react';
 import useWindowSize from '../hooks/useWindowSize';
 
 const Footer = ({ content }) => {
@@ -18,7 +18,7 @@ const Footer = ({ content }) => {
       margin-bottom: 60px;
     }
     .footer-brand .logo {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Poppins', sans-serif;
       font-size: 28px;
       margin-bottom: 20px;
       display: block;
@@ -52,7 +52,7 @@ const Footer = ({ content }) => {
       transform: translateY(-3px);
     }
     .footer-title {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Poppins', sans-serif;
       font-size: 18px;
       font-weight: 600;
       margin-bottom: 24px;
@@ -107,13 +107,34 @@ const Footer = ({ content }) => {
           gap: isMobile ? '40px' : isTablet ? '40px' : '60px'
         }}>
           <div className="footer-brand">
-            <NavLink to="/" className="logo">Sukeeshi</NavLink>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              fontFamily: "'Poppins', sans-serif",
+              fontWeight: 700,
+              fontSize: '22px',
+              color: '#ffffff',
+              marginBottom: '20px'
+            }}>
+              <Infinity
+                size={28}
+                style={{
+                  background: 'linear-gradient(135deg, #FAA819, #E8841A)',
+                  borderRadius: '50%',
+                  padding: '4px',
+                  color: '#1A0D00',
+                  flexShrink: 0
+                }}
+              />
+              Sukeeshi
+            </div>
             <p className="footer-tagline">Breaking patterns, building lives. NLP Practitioner & Relationship Coach.</p>
             <div className="social-links">
-              <a href="#" className="social-link"><FaInstagram /></a>
-              <a href="#" className="social-link"><FaYoutube /></a>
-              <a href="#" className="social-link"><FaWhatsapp /></a>
-              <a href="#" className="social-link"><FaFacebook /></a>
+              <a href="https://www.instagram.com/lifecoach_sukeeshi" className="social-link" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
+              <a href="https://youtube.com/@securerelationshipwithsukeeshi" className="social-link" target="_blank" rel="noopener noreferrer"><FaYoutube /></a>
+              <a href="https://wa.me/919099031325" className="social-link" target="_blank" rel="noopener noreferrer"><FaWhatsapp /></a>
+              <a href="https://www.facebook.com/share/1cgxNqoW41/" className="social-link" target="_blank" rel="noopener noreferrer"><FaFacebook /></a>
             </div>
           </div>
 
@@ -139,8 +160,8 @@ const Footer = ({ content }) => {
           <div className="footer-col">
             <h4 className="footer-title">Connect</h4>
             <div className="footer-links">
-              <a href="mailto:contact@lifecoachbysukeshi.com" className="footer-link">Email</a>
-              <a href="#" className="footer-link">WhatsApp</a>
+              <a href="mailto:sukeeshi.work@gmail.com" className="footer-link">Email</a>
+              <a href="https://wa.me/919099031325" target="_blank" rel="noopener noreferrer" className="footer-link">WhatsApp</a>
               <span className="footer-link">Ahmedabad, Gujarat, India</span>
             </div>
           </div>

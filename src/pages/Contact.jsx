@@ -11,7 +11,7 @@ const Contact = () => {
       title: 'WhatsApp',
       description: 'Chat directly for quick answers and support',
       btnText: 'Message Now',
-      link: 'https://wa.me/91XXXXXXXXXX',
+      link: 'https://wa.me/919099031325',
       isPrimary: true
     },
     {
@@ -19,7 +19,7 @@ const Contact = () => {
       title: 'Instagram',
       description: 'Follow for daily insights on relationships & healing',
       btnText: 'Follow Us',
-      link: 'https://instagram.com/lifecoach_sukeeshi',
+      link: 'https://www.instagram.com/lifecoach_sukeeshi',
       isPrimary: false
     },
     {
@@ -27,7 +27,7 @@ const Contact = () => {
       title: 'Email',
       description: 'For detailed queries and collaboration',
       btnText: 'Email Us',
-      link: 'mailto:contact@lifecoachbysukeshi.com',
+      link: 'mailto:sukeeshi.work@gmail.com',
       isPrimary: false
     },
     {
@@ -35,7 +35,7 @@ const Contact = () => {
       title: 'Facebook',
       description: 'Follow for daily insights on relationships & healing',
       btnText: 'Follow Us',
-      link: 'https://facebook.com/lifecoach_sukeeshi',
+      link: 'https://www.facebook.com/share/1cgxNqoW41/',
       isPrimary: false
     }
   ];

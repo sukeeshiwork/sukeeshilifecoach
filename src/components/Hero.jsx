@@ -2,9 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FaPlay, FaStar } from 'react-icons/fa';
 import useWindowSize from '../hooks/useWindowSize';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = ({ content }) => {
   const { isMobile, isTablet } = useWindowSize();
+  const navigate = useNavigate();
 
   const styles = `
     .hero {
@@ -231,12 +233,12 @@ const Hero = ({ content }) => {
             width: isMobile ? '100%' : 'auto',
             justifyContent: isTablet ? 'center' : 'flex-start',
           }}>
-            <button className="btn-primary" style={{
+            <button onClick={() => navigate('/clarity-call')} className="btn-primary" style={{
               width: isMobile ? '100%' : 'auto'
             }}>
               {content.ctaPrimary}
             </button>
-            <button className="btn-secondary" style={{
+            <button onClick={() => navigate('/one-on-one')} className="btn-secondary" style={{
               width: isMobile ? '100%' : 'auto'
             }}>
               {content.ctaSecondary}

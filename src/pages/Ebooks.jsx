@@ -5,26 +5,10 @@ import useWindowSize from '../hooks/useWindowSize';
 const ebooks = [
   {
     id: 1,
-    title: "5 Patterns Keeping You Stuck in Toxic Relationships",
-    description: "Discover the hidden emotional patterns that keep you attracting the wrong people — and how to break free.",
-    category: "Relationships",
-    driveLink: "https://drive.google.com/file/d/YOUR_FILE_ID_1/view",
-    cover: null // client will add image later
-  },
-  {
-    id: 2,
-    title: "The Inner Child Healing Guide",
+    title: "Behind the Perfect Family book ",
     description: "A practical guide to understanding your inner child wounds and how they affect your relationships today.",
-    category: "Healing",
-    driveLink: "https://drive.google.com/file/d/YOUR_FILE_ID_2/view",
-    cover: null
-  },
-  {
-    id: 3,
-    title: "Conscious Parenting — A Beginner's Guide",
-    description: "Simple tools and practices to help you respond instead of react — and raise emotionally secure children.",
     category: "Parenting",
-    driveLink: "https://drive.google.com/file/d/YOUR_FILE_ID_3/view",
+    driveLink: "https://drive.google.com/file/d/1k1SSsMOpxrhcDcrZFGpD2UrAOikcI0vu/view",
     cover: null
   },
 ];
