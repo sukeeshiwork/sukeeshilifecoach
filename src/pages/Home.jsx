@@ -158,9 +158,12 @@ const Home = () => {
       display: flex !important;
       flex-direction: column !important;
       align-items: center !important;
+      justify-content: flex-start !important;
       gap: 8px !important;
       text-align: center !important;
       transition: all 0.3s ease !important;
+      height: 100% !important;
+      box-sizing: border-box !important;
     }
     .exp-card:hover {
       transform: translateY(-4px) !important;
@@ -353,12 +356,17 @@ const Home = () => {
             <div className="experience-grid" style={{
               display: 'grid',
               gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : isTablet ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
-              gap: isMobile ? '10px' : '14px'
+              gap: isMobile ? '10px' : '14px',
+              alignItems: 'stretch'
             }}>
               {experienceData.map((item, idx) => (
                 <motion.div
                   key={idx}
                   className="exp-card"
+                  style={{
+                    height: '100%',
+                    boxSizing: 'border-box'
+                  }}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -379,22 +387,22 @@ const Home = () => {
                     {item.icon}
                   </div>
                   <h3 style={{
-                    fontSize: '14px',
+                    fontSize: isMobile ? '12px' : '14px',
                     fontWeight: 700,
                     color: '#1A1A1A',
                     margin: 0,
-                    textAlign: 'center',  
+                    textAlign: 'center',
                     width: '100%'
                   }}>
                     {item.title}
                   </h3>
                   <p style={{
-                    fontSize: '12px',
+                    fontSize: isMobile ? '11px' : '12px',
                     color: '#666666',
-                    lineHeight: '1.4',
+                    lineHeight: '1.5',
                     margin: 0,
                     textAlign: 'center',
-                    width: '100%' 
+                    width: '100%'
                   }}>
                     {item.text}
                   </p>
