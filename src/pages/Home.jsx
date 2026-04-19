@@ -255,7 +255,7 @@ const Home = () => {
   const experienceData = [
     { icon: <Sparkles size={22} />, title: 'Emotional Clarity', text: 'Instead of confusion and mental fog' },
     { icon: <MessageCircle size={22} />, title: 'Confident Communication', text: 'Speak your truth clearly in life and love' },
-    { icon: <Heart size={22} />, title: 'Deep Self-Doubt', text: 'Inner stability that no one can shake' },
+    { icon: <Heart size={22} />, title: 'Deep Self-Worth', text: 'Inner stability that no one can shake' },
     { icon: <Users size={22} />, title: 'Secure Relationships', text: 'Healthier, peaceful connections' },
   ];
 
