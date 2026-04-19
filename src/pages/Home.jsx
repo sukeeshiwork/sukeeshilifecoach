@@ -13,6 +13,13 @@ import useWindowSize from '../hooks/useWindowSize';
 
 const Home = () => {
   const { isMobile, isTablet } = useWindowSize();
+  
+  const fadeInUp = {
+    initial: { opacity: 0, y: 40 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, margin: "-50px" },
+    transition: { duration: 0.6, ease: "easeOut" }
+  };
 
   const styles = `
     .section-header {
@@ -263,17 +270,19 @@ const Home = () => {
         {/* WHO THIS IS FOR */}
         <section style={{ padding: isMobile ? '10px 0' : '40px 0', background: 'transparent' }}>
           <div className="container">
-            <div style={{ textAlign: 'center', marginBottom: isMobile ? '32px' : '48px' }}>
-              <span className="badge">{content.whoThisIsFor.badge}</span>
-              <h2 className="section-title" style={{ 
-                fontSize: isMobile ? '26px' : '42px', 
-                marginTop: '16px', 
-                color: '#1A1A1A', 
-                textAlign: 'center' 
-              }}>
-                {content.whoThisIsFor.headline}
-              </h2>
-            </div>
+            <motion.div {...fadeInUp}>
+              <div style={{ textAlign: 'center', marginBottom: isMobile ? '32px' : '48px' }}>
+                <span className="badge">{content.whoThisIsFor.badge}</span>
+                <h2 className="section-title" style={{ 
+                  fontSize: isMobile ? '26px' : '42px', 
+                  marginTop: '16px', 
+                  color: '#1A1A1A', 
+                  textAlign: 'center' 
+                }}>
+                  {content.whoThisIsFor.headline}
+                </h2>
+              </div>
+            </motion.div>
 
             <div className="who-grid" style={{
               display: 'flex',
@@ -283,7 +292,14 @@ const Home = () => {
               margin: '0 auto'
             }}>
               {whoData.map((item, idx) => (
-                <div key={idx} className="who-card">
+                <motion.div
+                  key={idx}
+                  className="who-card"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                >
                   {/* Icon box */}
                   <div style={{
                     width: '38px',
@@ -311,7 +327,7 @@ const Home = () => {
                   }}>
                     {item.text}
                   </p>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -320,17 +336,19 @@ const Home = () => {
         {/* WHAT YOU'LL EXPERIENCE */}
         <section style={{ padding: isMobile ? '40px 0' : '80px 0', background: 'transparent' }}>
           <div className="container">
-            <div style={{ textAlign: 'center', marginBottom: isMobile ? '32px' : '48px' }}>
-              <span className="badge">{content.whatYoullExperience.badge}</span>
-              <h2 className="section-title" style={{ 
-                fontSize: isMobile ? '26px' : '42px', 
-                marginTop: '16px', 
-                color: '#1A1A1A', 
-                textAlign: 'center' 
-              }}>
-                {content.whatYoullExperience.headline}
-              </h2>
-            </div>
+            <motion.div {...fadeInUp}>
+              <div style={{ textAlign: 'center', marginBottom: isMobile ? '32px' : '48px' }}>
+                <span className="badge">{content.whatYoullExperience.badge}</span>
+                <h2 className="section-title" style={{ 
+                  fontSize: isMobile ? '26px' : '42px', 
+                  marginTop: '16px', 
+                  color: '#1A1A1A', 
+                  textAlign: 'center' 
+                }}>
+                  {content.whatYoullExperience.headline}
+                </h2>
+              </div>
+            </motion.div>
 
             <div className="experience-grid" style={{
               display: 'grid',
@@ -338,7 +356,14 @@ const Home = () => {
               gap: isMobile ? '10px' : '14px'
             }}>
               {experienceData.map((item, idx) => (
-                <div key={idx} className="exp-card">
+                <motion.div
+                  key={idx}
+                  className="exp-card"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                >
                   <div style={{
                     width: '48px',
                     height: '48px',
@@ -358,7 +383,8 @@ const Home = () => {
                     fontWeight: 700,
                     color: '#1A1A1A',
                     margin: 0,
-                    textAlign: 'center'
+                    textAlign: 'center',  
+                    width: '100%'
                   }}>
                     {item.title}
                   </h3>
@@ -367,11 +393,12 @@ const Home = () => {
                     color: '#666666',
                     lineHeight: '1.4',
                     margin: 0,
-                    textAlign: 'center'
+                    textAlign: 'center',
+                    width: '100%' 
                   }}>
                     {item.text}
                   </p>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -380,50 +407,52 @@ const Home = () => {
         {/* SERVICES — 2 Cards */}
         <section id="services" className="section-padding" style={{ padding: isMobile ? '40px 0' : '80px 0', background: 'transparent' }}>
           <div className="container">
-            <div className="section-header" style={{ marginBottom: isMobile ? '32px' : '48px' }}>
-              <span className="badge">Services</span>
-              <h2 className="section-title" style={{ fontSize: isMobile ? '26px' : '32px' }}>Choose Your Path</h2>
-            </div>
-            <div className="offer-grid" style={{
-              display: 'grid',
-              gridTemplateColumns: isTablet ? '1fr' : 'repeat(2, 1fr)',
-              maxWidth: '900px',
-              margin: '0 auto',
-              gap: isMobile ? '16px' : '30px'
-            }}>
-              {/* Clarity Call */}
-              <div className="glass-card offer-card" style={{ padding: '40px', display: 'flex', flexDirection: 'column' }}>
-                <h3 style={{ fontSize: '28px', marginBottom: '8px', color: '#1A1A1A' }}>Clarity Call</h3>
-                <p style={{ color: '#E8841A', fontWeight: 600, marginBottom: '20px' }}>₹333</p>
-                <div className="feature-list" style={{ marginBottom: '40px', flexGrow: 1 }}>
-                  {["Understand your emotional patterns", "Safe space to share freely", "Get clarity on your next step"].map((f, i) => (
-                    <div key={i} className="feature-item">
-                      <span className="feature-dot">✓</span> {f}
-                    </div>
-                  ))}
-                </div>
-                <NavLink to="/clarity-call" className="btn-secondary" style={{ width: '100%', textAlign: 'center' }}>
-                  Book Now
-                </NavLink>
+            <motion.div {...fadeInUp}>
+              <div className="section-header" style={{ marginBottom: isMobile ? '32px' : '48px' }}>
+                <span className="badge">Services</span>
+                <h2 className="section-title" style={{ fontSize: isMobile ? '26px' : '32px' }}>Choose Your Path</h2>
               </div>
+              <div className="offer-grid" style={{
+                display: 'grid',
+                gridTemplateColumns: isTablet ? '1fr' : 'repeat(2, 1fr)',
+                maxWidth: '900px',
+                margin: '0 auto',
+                gap: isMobile ? '16px' : '30px'
+              }}>
+                {/* Clarity Call */}
+                <div className="glass-card offer-card" style={{ padding: '40px', display: 'flex', flexDirection: 'column' }}>
+                  <h3 style={{ fontSize: '28px', marginBottom: '8px', color: '#1A1A1A' }}>Clarity Call</h3>
+                  <p style={{ color: '#E8841A', fontWeight: 600, marginBottom: '20px' }}>₹565</p>
+                  <div className="feature-list" style={{ marginBottom: '40px', flexGrow: 1 }}>
+                    {["Understand your emotional patterns", "Safe space to share freely", "Get clarity on your next step"].map((f, i) => (
+                      <div key={i} className="feature-item">
+                        <span className="feature-dot">✓</span> {f}
+                      </div>
+                    ))}
+                  </div>
+                  <NavLink to="/clarity-call" className="btn-secondary" style={{ width: '100%', textAlign: 'center' }}>
+                    Book Now
+                  </NavLink>
+                </div>
 
-              {/* 1-on-1 Coaching */}
-              <div className="glass-card offer-card featured" style={{ padding: '40px', display: 'flex', flexDirection: 'column' }}>
-                <div className="popular-badge">POPULAR</div>
-                <h3 style={{ fontSize: '28px', marginBottom: '8px', color: '#1A1A1A' }}>1-on-1 Coaching</h3>
-                <p style={{ color: '#E8841A', fontWeight: 600, marginBottom: '20px' }}>Personalized Coaching</p>
-                <div className="feature-list" style={{ marginBottom: '40px', flexGrow: 1 }}>
-                  {["Deep personalized sessions", "Customized plan", "Ongoing support & accountability"].map((f, i) => (
-                    <div key={i} className="feature-item">
-                      <span className="feature-dot">✓</span> {f}
-                    </div>
-                  ))}
+                {/* 1-on-1 Coaching */}
+                <div className="glass-card offer-card featured" style={{ padding: '40px', display: 'flex', flexDirection: 'column' }}>
+                  <div className="popular-badge">POPULAR</div>
+                  <h3 style={{ fontSize: '28px', marginBottom: '8px', color: '#1A1A1A' }}>1-on-1 Coaching</h3>
+                  <p style={{ color: '#E8841A', fontWeight: 600, marginBottom: '20px' }}>Personalized Coaching</p>
+                  <div className="feature-list" style={{ marginBottom: '40px', flexGrow: 1 }}>
+                    {["Deep personalized sessions", "Customized plan", "Ongoing support & accountability"].map((f, i) => (
+                      <div key={i} className="feature-item">
+                        <span className="feature-dot">✓</span> {f}
+                      </div>
+                    ))}
+                  </div>
+                  <NavLink to="/one-on-one" className="btn-primary" style={{ width: '100%', textAlign: 'center' }}>
+                    Explore Programs
+                  </NavLink>
                 </div>
-                <NavLink to="/one-on-one" className="btn-primary" style={{ width: '100%', textAlign: 'center' }}>
-                  Explore Programs
-                </NavLink>
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -433,44 +462,48 @@ const Home = () => {
           background: 'rgba(250, 168, 25, 0.05)' 
         }}>
           <div className="container">
-            <div className="section-header" style={{ marginBottom: isMobile ? '32px' : '48px' }}>
-              <span className="badge">How It Works</span>
-              <h2 className="section-title" style={{ fontSize: isMobile ? '26px' : '32px' }}>Your Journey To Healing</h2>
-            </div>
-            <div className="steps-container" style={{
-              flexDirection: isTablet ? 'column' : 'row',
-              gap: isMobile ? '24px' : isTablet ? '40px' : '20px',
-              alignItems: 'center'
-            }}>
-              {[
-                { num: "1", title: "Book a Call", desc: "Start with a safe conversation" },
-                { num: "2", title: "Identify Patterns", desc: "Understand your core emotional triggers" },
-                { num: "3", title: "Start Your Journey", desc: "Begin your personalized plan" }
-              ].map((step, idx) => (
-                <React.Fragment key={idx}>
-                  <div className="step-item">
-                    <div className="step-circle">{step.num}</div>
-                    <h3 className="step-title">{step.title}</h3>
-                    <p className="step-desc">{step.desc}</p>
-                  </div>
-                  {idx < 2 && (
-                    <div className="step-arrow">
-                      <ChevronRight size={32} />
+            <motion.div {...fadeInUp}>
+              <div className="section-header" style={{ marginBottom: isMobile ? '32px' : '48px' }}>
+                <span className="badge">How It Works</span>
+                <h2 className="section-title" style={{ fontSize: isMobile ? '26px' : '32px' }}>Your Journey To Healing</h2>
+              </div>
+              <div className="steps-container" style={{
+                flexDirection: isTablet ? 'column' : 'row',
+                gap: isMobile ? '24px' : isTablet ? '40px' : '20px',
+                alignItems: 'center'
+              }}>
+                {[
+                  { num: "1", title: "Book a Call", desc: "Start with a safe conversation" },
+                  { num: "2", title: "Identify Patterns", desc: "Understand your core emotional triggers" },
+                  { num: "3", title: "Start Your Journey", desc: "Begin your personalized plan" }
+                ].map((step, idx) => (
+                  <React.Fragment key={idx}>
+                    <div className="step-item">
+                      <div className="step-circle">{step.num}</div>
+                      <h3 className="step-title">{step.title}</h3>
+                      <p className="step-desc">{step.desc}</p>
                     </div>
-                  )}
-                </React.Fragment>
-              ))}
-            </div>
+                    {idx < 2 && (
+                      <div className="step-arrow">
+                        <ChevronRight size={32} />
+                      </div>
+                    )}
+                  </React.Fragment>
+                ))}
+              </div>
+            </motion.div>
           </div>
         </section>
 
         {/* TESTIMONIALS */}
         <section className="section-padding" style={{ background: 'transparent' }}>
           <div className="container">
-            <div className="section-header">
-              <span className="badge">Testimonials</span>
-              <h2 className="section-title">Voices of Healing</h2>
-            </div>
+            <motion.div {...fadeInUp}>
+              <div className="section-header">
+                <span className="badge">Testimonials</span>
+                <h2 className="section-title">Voices of Healing</h2>
+              </div>
+            </motion.div>
         
             <TestimonialCarousel />
         

@@ -43,6 +43,7 @@ const Ebooks = () => {
       <section style={{
         paddingTop: isMobile ? '80px' : '140px',
         paddingBottom: isMobile ? '40px' : '80px',
+        marginTop: isMobile ? '120px' : '0',
         background: 'transparent'
       }}>
         <div className="container">

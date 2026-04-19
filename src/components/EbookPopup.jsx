@@ -8,6 +8,22 @@ const EbookPopup = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const EBOOK_SHEET_URL = import.meta.env.VITE_EBOOK_SHEET_URL;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    await fetch(EBOOK_SHEET_URL, {
+      method: 'POST',
+      body: JSON.stringify({
+        name: name,
+        whatsapp: phone,
+        ebookTitle: 'Free Ebook'
+      })
+    });
+
+    setIsSuccess(true);
+  };
 
   useEffect(() => {
     // Don't show if already shown this session
@@ -39,12 +55,6 @@ const EbookPopup = () => {
 
   const handleClose = () => {
     setIsVisible(false);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // TODO: Send name + phone to backend/sheet
-    setIsSuccess(true);
   };
 
   if (!isVisible) return null;
