@@ -6,9 +6,9 @@ import { saveToSheet, updatePaymentStatus } from '../utils/googleSheet';
 import { initiatePayment } from '../utils/razorpay';
 
 const plans = [
-  { label: '1 Month Coaching — ₹333', value: '1 Month Coaching', price: '333', priceInPaise: 33300 },
-  { label: '3 Month Coaching — ₹9,999', value: '3 Month Coaching', price: '9,999', priceInPaise: 999900 },
-  { label: '6 Month Coaching — ₹15,999', value: '6 Month Coaching', price: '15,999', priceInPaise: 1599900 },
+  { label: '1 Month Coaching — ₹5656', value: '1 Month Coaching', price: '5656', priceInPaise: 565600 },
+  { label: '3 Month Coaching — ₹15,999', value: '3 Month Coaching', price: '15,999', priceInPaise: 1599900 },
+  { label: '6 Month Coaching — ₹30,000', value: '6 Month Coaching', price: '30,000', priceInPaise: 3000000 },
 ];
 
 const OneOnOneForm = () => {
