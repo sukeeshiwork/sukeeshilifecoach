@@ -16,6 +16,21 @@ const Success = () => {
 
   if (!state || !state.paymentId) return null;
 
+  const whatsappMessage = encodeURIComponent(
+    `Hi Sukeeshi! 👋
+    
+    I just completed my booking. Here are my details:
+    
+    *Name:* ${state.name}
+    *Service:* ${state.type}
+    *Amount Paid:* ${state.amount}
+    *Payment ID:* ${state.paymentId}
+    
+    Looking forward to our session! 🙏`
+  );
+
+  const whatsappUrl = `https://wa.me/919099031325?text=${whatsappMessage}`;
+
   return (
     <div className="about-page">
       <section style={{
@@ -150,7 +165,55 @@ const Success = () => {
               gap: '16px'
             }}>
               <a
-                href="https://wa.me/919099031325"
+                href={whatsappUrl}
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '10px',
+                  background: '#25D366',
+                  color: 'white',
+                  fontWeight: 700,
+                  fontSize: '16px',
+                  padding: '16px 32px',
+                  borderRadius: '50px',
+                  textDecoration: 'none',
+                  width: '100%'
+                }}
+              >
+                <MessageCircle size={20} />
+                Send Confirmation on WhatsApp
+              </a>
+
+              <div style={{
+                marginTop: '16px',
+                padding: '14px 20px',
+                background: 'rgba(250,168,25,0.08)',
+                border: '1px solid rgba(250,168,25,0.2)',
+                borderRadius: '12px',
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: '10px'
+              }}>
+                <span style={{ fontSize: '20px', flexShrink: 0 }}>📸</span>
+                <p style={{
+                  fontSize: '13px',
+                  color: '#666',
+                  margin: 0,
+                  lineHeight: 1.6,
+                  textAlign: 'left'
+                }}>
+                  <strong style={{ color: '#333333' }}>Please take a screenshot</strong> of this page
+                  and attach it along with your WhatsApp message
+                  as proof of payment. This will help us confirm
+                  your booking faster. 🙏
+                </p>
+              </div>
+
+              <a
+                href="https://chat.whatsapp.com/CXjHyZQArA6FmEwlifJyyZ?mode=gi_t"
                 target="_blank"
                 rel="noreferrer"
                 style={{
@@ -168,7 +231,7 @@ const Success = () => {
                 }}
               >
                 <MessageCircle size={20} />
-                Message on WhatsApp
+                Join Our WhatsApp Community
               </a>
 
               <NavLink to="/" style={{

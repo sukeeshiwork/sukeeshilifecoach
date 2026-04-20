@@ -6,7 +6,7 @@ import { saveToSheet, updatePaymentStatus } from '../utils/googleSheet';
 import { initiatePayment } from '../utils/razorpay';
 
 const plans = [
-  { label: '1 Month Coaching — ₹5,656', value: '1 Month Coaching', price: '5,656', priceInPaise: 565600 },
+  { label: '1 Month Coaching — ₹333', value: '1 Month Coaching', price: '333', priceInPaise: 33300 },
   { label: '3 Month Coaching — ₹9,999', value: '3 Month Coaching', price: '9,999', priceInPaise: 999900 },
   { label: '6 Month Coaching — ₹15,999', value: '6 Month Coaching', price: '15,999', priceInPaise: 1599900 },
 ];
@@ -19,6 +19,7 @@ const OneOnOneForm = () => {
   const defaultPlan = passed?.plan || '1 Month Coaching';
   const [selectedPlan, setSelectedPlan] = useState(defaultPlan);
   const [loading, setLoading] = useState(false);
+  const [phoneError, setPhoneError] = useState('');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -41,6 +42,12 @@ const OneOnOneForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
+    if (formData.whatsapp.length !== 10) {
+      setPhoneError('Please enter a valid 10-digit number');
+      setLoading(false);
+      return;
+    }
 
     try {
       // Step 1 — Save to Sheet with Pending
@@ -271,11 +278,32 @@ const OneOnOneForm = () => {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   <label style={{ fontSize: '14px', color: '#333333', fontWeight: 600 }}>WhatsApp Number</label>
                   <input
-                    required type="tel" placeholder="+91 98765 43210"
+                    required
+                    type="tel"
+                    placeholder="Enter 10-digit number"
                     value={formData.whatsapp}
-                    onChange={e => setFormData({ ...formData, whatsapp: e.target.value })}
+                    maxLength={10}
+                    onChange={e => {
+                      const val = e.target.value.replace(/\D/g, '');
+                      setFormData({ ...formData, whatsapp: val });
+                      if (val.length > 0 && val.length < 10) {
+                        setPhoneError('Please enter a valid 10-digit number');
+                      } else {
+                        setPhoneError('');
+                      }
+                    }}
                     style={inputStyle}
                   />
+                  {phoneError && (
+                    <p style={{
+                      fontSize: '12px',
+                      color: '#EF4444',
+                      marginTop: '4px',
+                      marginBottom: '0'
+                    }}>
+                      {phoneError}
+                    </p>
+                  )}
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>

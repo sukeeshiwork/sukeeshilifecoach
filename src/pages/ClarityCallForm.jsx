@@ -9,6 +9,7 @@ const ClarityCallForm = () => {
   const navigate = useNavigate();
   const [charCount, setCharCount] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [phoneError, setPhoneError] = useState('');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -30,6 +31,12 @@ const ClarityCallForm = () => {
     e.preventDefault();
     setLoading(true);
 
+    if (formData.whatsapp.length !== 10) {
+      setPhoneError('Please enter a valid 10-digit number');
+      setLoading(false);
+      return;
+    }
+
     try {
       // Step 1 — Save to Google Sheet with Pending status
       const sheetResult = await saveToSheet('Clarity Call', {
@@ -44,11 +51,11 @@ const ClarityCallForm = () => {
 
       // Step 2 — Open Razorpay
       await initiatePayment({
-        amount: 56500, // ₹565 in paise
+        amount: 33300, // ₹333 in paise
         name: formData.name,
         email: formData.email,
         contact: formData.whatsapp,
-        description: 'Clarity Call — ₹565',
+        description: 'Clarity Call — ₹333',
         onSuccess: async (paymentId) => {
           // Step 3 — Update payment status in sheet
           if (rowIndex) {
@@ -59,7 +66,7 @@ const ClarityCallForm = () => {
             state: {
               name: formData.name,
               type: 'Clarity Call',
-              amount: '₹565',
+              amount: '₹333',
               paymentId: paymentId
             }
           });
@@ -189,7 +196,7 @@ const ClarityCallForm = () => {
                 Complete Your Booking
               </h1>
               <p style={{ color: '#666', marginTop: '12px' }}>
-                Fill in your details to secure your Clarity Call — ₹565
+                Fill in your details to secure your Clarity Call — ₹333
               </p>
             </div>
 
@@ -239,11 +246,30 @@ const ClarityCallForm = () => {
                   <input
                     required
                     type="tel"
-                    placeholder="+91 98765 43210"
+                    placeholder="Enter 10-digit number"
                     value={formData.whatsapp}
-                    onChange={e => setFormData({ ...formData, whatsapp: e.target.value })}
+                    maxLength={10}
+                    onChange={e => {
+                      const val = e.target.value.replace(/\D/g, '');
+                      setFormData({ ...formData, whatsapp: val });
+                      if (val.length > 0 && val.length < 10) {
+                        setPhoneError('Please enter a valid 10-digit number');
+                      } else {
+                        setPhoneError('');
+                      }
+                    }}
                     style={inputStyle}
                   />
+                  {phoneError && (
+                    <p style={{
+                      fontSize: '12px',
+                      color: '#EF4444',
+                      marginTop: '4px',
+                      marginBottom: '0'
+                    }}>
+                      {phoneError}
+                    </p>
+                  )}
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -308,7 +334,7 @@ const ClarityCallForm = () => {
                 >
                   {loading ? 'Processing...' : (
                     <>
-                      Proceed to Payment — ₹565
+                      Proceed to Payment — ₹333
                       <ChevronRight size={20} />
                     </>
                   )}

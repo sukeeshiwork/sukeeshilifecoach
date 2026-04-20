@@ -76,7 +76,7 @@ const ClarityCall = () => {
                 padding: isMobile ? '14px 32px' : '16px 48px',
                 width: isMobile ? '100%' : 'auto'
               }}>
-                Book Your Clarity Call — ₹565
+                Book Your Clarity Call — ₹333
               </button>
             </NavLink>
 
@@ -472,7 +472,7 @@ const ClarityCall = () => {
               marginBottom: '8px',
               fontFamily: 'Inter, sans-serif'
             }}>
-              ₹565
+              ₹333
             </div>
             <p style={{
               fontSize: isMobile ? '13px' : '15px',
@@ -535,7 +535,7 @@ const ClarityCall = () => {
                 padding: isMobile ? '14px 32px' : '16px 48px',
                 width: isMobile ? '100%' : 'auto'
               }}>
-                Book Your Clarity Call — ₹565
+                Book Your Clarity Call — ₹333
               </button>
             </NavLink>
           </div>

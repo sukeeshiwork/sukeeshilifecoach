@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaPlay, FaStar } from 'react-icons/fa';
 import useWindowSize from '../hooks/useWindowSize';
@@ -7,6 +7,58 @@ import { useNavigate } from 'react-router-dom';
 const Hero = ({ content }) => {
   const { isMobile, isTablet } = useWindowSize();
   const navigate = useNavigate();
+  
+  // Video player states
+  const videoRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+  const [progress, setProgress] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isBuffering, setIsBuffering] = useState(false);
+
+  // Video handlers
+  const togglePlay = () => {
+    if (!videoRef.current) return;
+    if (isPlaying) {
+      videoRef.current.pause();
+    } else {
+      videoRef.current.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
+
+  const toggleMute = (e) => {
+    e.stopPropagation();
+    if (!videoRef.current) return;
+    videoRef.current.muted = !isMuted;
+    setIsMuted(!isMuted);
+  };
+
+  const handleProgress = () => {
+    if (!videoRef.current) return;
+    const current = videoRef.current.currentTime;
+    const duration = videoRef.current.duration;
+    if (duration) setProgress((current / duration) * 100);
+  };
+
+  const handleSeek = (e) => {
+    e.stopPropagation();
+    if (!videoRef.current) return;
+    const bar = e.currentTarget;
+    const rect = bar.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const percent = x / rect.width;
+    videoRef.current.currentTime = percent * videoRef.current.duration;
+  };
+
+  const handleCanPlay = () => {
+    setIsLoading(false);
+    setIsBuffering(false);
+  };
+
+  const handleWaiting = () => {
+    setIsBuffering(true);
+  };
 
   const styles = `
     .hero {
@@ -208,10 +260,152 @@ const Hero = ({ content }) => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <div className="video-container">
-                <div className="play-btn">
-                  <FaPlay />
+              <div
+                onClick={togglePlay}
+                style={{
+                  width: '100%',
+                  aspectRatio: '16/9',
+                  borderRadius: '20px',
+                  overflow: 'hidden',
+                  position: 'relative',
+                  background: '#000',
+                  cursor: 'pointer',
+                  border: '1px solid rgba(255, 215, 80, 0.35)',
+                  boxShadow: '0 20px 60px rgba(232, 132, 26, 0.1)',
+                }}
+              >
+                {/* VIDEO ELEMENT */}
+                <video
+                  ref={videoRef}
+                  src="https://res.cloudinary.com/dfdxfvbtg/video/upload/q_auto/f_auto/v1776680758/Export-Website2-20260417-164832_mryfxa.mov"
+                  muted
+                  playsInline
+                  preload="metadata"
+                  onTimeUpdate={handleProgress}
+                  onCanPlay={handleCanPlay}
+                  onWaiting={handleWaiting}
+                  onEnded={() => setIsPlaying(false)}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    display: 'block'
+                  }}
+                />
+
+                {/* LOADING SPINNER */}
+                {(isLoading || isBuffering) && (
+                  <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: 'rgba(0,0,0,0.3)'
+                  }}>
+                    <div style={{
+                      width: '48px',
+                      height: '48px',
+                      borderRadius: '50%',
+                      border: '4px solid rgba(250,168,25,0.3)',
+                      borderTop: '4px solid #FAA819',
+                      animation: 'spin 1s linear infinite'
+                    }} />
+                  </div>
+                )}
+
+                {/* PLAY BUTTON OVERLAY */}
+                {!isPlaying && !isLoading && (
+                  <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: 'rgba(0,0,0,0.25)'
+                  }}>
+                    <div style={{
+                      width: '72px',
+                      height: '72px',
+                      borderRadius: '50%',
+                      background: 'linear-gradient(135deg, #FAA819, #E8841A)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      boxShadow: '0 4px 24px rgba(232,132,26,0.5)',
+                      transition: 'transform 0.2s ease'
+                    }}>
+                      <FaPlay color="#1A0D00" size={24} style={{ marginLeft: '4px' }} />
+                    </div>
+                  </div>
+                )}
+
+                {/* MUTE BUTTON */}
+                <button
+                  onClick={toggleMute}
+                  style={{
+                    position: 'absolute',
+                    bottom: '48px',
+                    left: '12px',
+                    background: 'rgba(0,0,0,0.55)',
+                    backdropFilter: 'blur(8px)',
+                    border: '1px solid rgba(255,255,255,0.2)',
+                    borderRadius: '50px',
+                    padding: '6px 14px',
+                    color: '#fff',
+                    fontSize: '16px',
+                    cursor: 'pointer',
+                    zIndex: 10,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    lineHeight: 1
+                  }}
+                >
+                  {isMuted ? '🔇' : '🔊'}
+                </button>
+
+                {/* PROGRESS BAR */}
+                <div
+                  onClick={handleSeek}
+                  style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    height: '36px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: '0 12px',
+                    background: 'linear-gradient(to top, rgba(0,0,0,0.6), transparent)',
+                    cursor: 'pointer',
+                    zIndex: 10
+                  }}
+                >
+                  <div style={{
+                    width: '100%',
+                    height: '4px',
+                    background: 'rgba(255,255,255,0.3)',
+                    borderRadius: '2px',
+                    overflow: 'hidden'
+                  }}>
+                    <div style={{
+                      height: '100%',
+                      width: `${progress}%`,
+                      background: 'linear-gradient(90deg, #FAA819, #E8841A)',
+                      borderRadius: '2px',
+                      transition: 'width 0.1s linear'
+                    }} />
+                  </div>
                 </div>
+
+                {/* Spinner CSS */}
+                <style>{`
+                  @keyframes spin {
+                    from { transform: rotate(0deg); }
+                    to { transform: rotate(360deg); }
+                  }
+                `}</style>
               </div>
             </motion.div>
           )}
@@ -246,7 +440,7 @@ const Hero = ({ content }) => {
           </div>
 
           {/* TRUST STRIP */}
-          <div className="trust-strip" style={{
+          {/* <div className="trust-strip" style={{
             justifyContent: isMobile ? 'center' : isTablet ? 'center' : 'flex-start',
           }}>
             <div className="avatar-stack">
@@ -262,7 +456,7 @@ const Hero = ({ content }) => {
                 <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
               </div>
             </div>
-          </div>
+          </div> */}
         </motion.div>
 
         {/* RIGHT — Video (desktop/tablet only) */}
@@ -273,10 +467,152 @@ const Hero = ({ content }) => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <div className="video-container">
-              <div className="play-btn">
-                <FaPlay />
+            <div
+              onClick={togglePlay}
+              style={{
+                width: '100%',
+                aspectRatio: '16/9',
+                borderRadius: '20px',
+                overflow: 'hidden',
+                position: 'relative',
+                background: '#000',
+                cursor: 'pointer',
+                border: '1px solid rgba(255, 215, 80, 0.35)',
+                boxShadow: '0 20px 60px rgba(232, 132, 26, 0.1)',
+              }}
+            >
+              {/* VIDEO ELEMENT */}
+              <video
+                ref={videoRef}
+                src="https://res.cloudinary.com/dfdxfvbtg/video/upload/q_auto/f_auto/v1776680758/Export-Website2-20260417-164832_mryfxa.mov"
+                muted
+                playsInline
+                preload="metadata"
+                onTimeUpdate={handleProgress}
+                onCanPlay={handleCanPlay}
+                onWaiting={handleWaiting}
+                onEnded={() => setIsPlaying(false)}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: 'block'
+                }}
+              />
+
+              {/* LOADING SPINNER */}
+              {(isLoading || isBuffering) && (
+                <div style={{
+                  position: 'absolute',
+                  inset: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  background: 'rgba(0,0,0,0.3)'
+                }}>
+                  <div style={{
+                    width: '48px',
+                    height: '48px',
+                    borderRadius: '50%',
+                    border: '4px solid rgba(250,168,25,0.3)',
+                    borderTop: '4px solid #FAA819',
+                    animation: 'spin 1s linear infinite'
+                  }} />
+                </div>
+              )}
+
+              {/* PLAY BUTTON OVERLAY */}
+              {!isPlaying && !isLoading && (
+                <div style={{
+                  position: 'absolute',
+                  inset: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  background: 'rgba(0,0,0,0.25)'
+                }}>
+                  <div style={{
+                    width: '72px',
+                    height: '72px',
+                    borderRadius: '50%',
+                    background: 'linear-gradient(135deg, #FAA819, #E8841A)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: '0 4px 24px rgba(232,132,26,0.5)',
+                    transition: 'transform 0.2s ease'
+                  }}>
+                    <FaPlay color="#1A0D00" size={24} style={{ marginLeft: '4px' }} />
+                  </div>
+                </div>
+              )}
+
+              {/* MUTE BUTTON */}
+              <button
+                onClick={toggleMute}
+                style={{
+                  position: 'absolute',
+                  bottom: '48px',
+                  left: '12px',
+                  background: 'rgba(0,0,0,0.55)',
+                  backdropFilter: 'blur(8px)',
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  borderRadius: '50px',
+                  padding: '6px 14px',
+                  color: '#fff',
+                  fontSize: '16px',
+                  cursor: 'pointer',
+                  zIndex: 10,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  lineHeight: 1
+                }}
+              >
+                {isMuted ? '🔇' : '🔊'}
+              </button>
+
+              {/* PROGRESS BAR */}
+              <div
+                onClick={handleSeek}
+                style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  height: '36px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '0 12px',
+                  background: 'linear-gradient(to top, rgba(0,0,0,0.6), transparent)',
+                  cursor: 'pointer',
+                  zIndex: 10
+                }}
+              >
+                <div style={{
+                  width: '100%',
+                  height: '4px',
+                  background: 'rgba(255,255,255,0.3)',
+                  borderRadius: '2px',
+                  overflow: 'hidden'
+                }}>
+                  <div style={{
+                    height: '100%',
+                    width: `${progress}%`,
+                    background: 'linear-gradient(90deg, #FAA819, #E8841A)',
+                    borderRadius: '2px',
+                    transition: 'width 0.1s linear'
+                  }} />
+                </div>
               </div>
+
+              {/* Spinner CSS */}
+              <style>{`
+                @keyframes spin {
+                  from { transform: rotate(0deg); }
+                  to { transform: rotate(360deg); }
+                }
+              `}</style>
             </div>
           </motion.div>
         )}

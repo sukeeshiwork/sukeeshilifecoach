@@ -3,13 +3,13 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import useWindowSize from '../hooks/useWindowSize';
 
 const videos = [
+  { url: "https://res.cloudinary.com/dfdxfvbtg/video/upload/q_auto/f_auto/v1776160217/6_d3ac7h.mp4" },
   { url: "https://res.cloudinary.com/dfdxfvbtg/video/upload/q_auto/f_auto/v1776160203/3_bfbs5z.mp4" },
   { url: "https://res.cloudinary.com/dfdxfvbtg/video/upload/q_auto/f_auto/v1776160212/5_w8nemj.mp4" },
   { url: "https://res.cloudinary.com/dfdxfvbtg/video/upload/q_auto/f_auto/v1776160208/1_palchw.mp4" },
   { url: "https://res.cloudinary.com/dfdxfvbtg/video/upload/q_auto/f_auto/v1776160202/4_obpjzf.mp4" },
   { url: "https://res.cloudinary.com/dfdxfvbtg/video/upload/q_auto/f_auto/v1776160202/2_kjd6gh.mp4" },
   { url: "https://res.cloudinary.com/dfdxfvbtg/video/upload/q_auto/f_auto/v1776160222/7_ikjvl9.mp4" },
-  { url: "https://res.cloudinary.com/dfdxfvbtg/video/upload/q_auto/f_auto/v1776160217/6_d3ac7h.mp4" },
 ];
 
 const TestimonialCarousel = () => {

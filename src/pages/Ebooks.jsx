@@ -11,6 +11,33 @@ const ebooks = [
     driveLink: "https://drive.google.com/file/d/1k1SSsMOpxrhcDcrZFGpD2UrAOikcI0vu/view",
     cover: null
   },
+  {
+    id: 2,
+    title: "decode hidden emotions for children",
+    description: "Unlock the secrets of your child’s inner world. This practical guide helps you understand their hidden emotions, and build a relationship based on trust and emotional safety.",
+    category: "Parenting",
+    driveLink: "https://drive.google.com/file/d/1D9tmQElMIs-mN-Kzlw2TBKmT4GLmPjSG/view?usp=drive_link",
+    cover: null
+  },
+
+  {
+    id: 3,
+    title: "31 ways to connect with your child",
+    description: "31 simple, practical ways to deepen your bond with your child every day. From meaningful conversations to fun activities, this guide helps you build a stronger, more connected relationship.",
+    category: "Parenting",
+    driveLink: "https://drive.google.com/file/d/1E5ZzYVSUkXIvAPB9q-TtZO-9NeHhDYBp/view",
+    cover: null
+  },
+
+  {
+    id: 4,
+    title: "The Silent Shift",
+    description: "Discover how your parents’ relationship patterns silently influence your own. This guide helps you recognize these patterns, understand their impact, and make conscious choices for healthier relationships.",
+    category: "Parenting",
+    driveLink: "https://drive.google.com/file/d/1Eshpxc9cUNFODWkJb6hZIGAAnHqd2GYz/view",
+    cover: null
+  },
+
 ];
 
 const categoryColors = {
@@ -80,11 +107,12 @@ const Ebooks = () => {
                   overflow: 'hidden',
                   display: 'flex',
                   flexDirection: 'column',
-                  transition: 'all 0.3s ease'
+                  transition: 'all 0.3s ease',
+                  position: 'relative'
                 }}
               >
                 {/* Cover Image */}
-                <div style={{
+                {/* <div style={{
                   width: '100%',
                   height: '200px',
                   background: 'linear-gradient(135deg, rgba(250,168,25,0.15), rgba(232,132,26,0.25))',
@@ -120,10 +148,10 @@ const Ebooks = () => {
                         Cover Coming Soon
                       </p>
                     </div>
-                  )}
+                  )} */}
 
                   {/* Category badge */}
-                  <div style={{
+                  {/* <div style={{
                     position: 'absolute',
                     top: '12px',
                     left: '12px',
@@ -135,8 +163,7 @@ const Ebooks = () => {
                     borderRadius: '50px'
                   }}>
                     {ebook.category}
-                  </div>
-                </div>
+                  </div> */}
 
                 {/* Content */}
                 <div style={{
@@ -229,7 +256,7 @@ const Ebooks = () => {
               borderRadius: '50px',
               textDecoration: 'none'
             }}>
-              Book a Clarity Call — ₹565
+              Book a Clarity Call — ₹333
             </a>
           </div>
 

@@ -8,10 +8,16 @@ const EbookPopup = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [phoneError, setPhoneError] = useState('');
   const EBOOK_SHEET_URL = import.meta.env.VITE_EBOOK_SHEET_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (phone.length !== 10) {
+      setPhoneError('Please enter a valid 10-digit number');
+      return;
+    }
 
     await fetch(EBOOK_SHEET_URL, {
       method: 'POST',
@@ -176,13 +182,32 @@ const EbookPopup = () => {
               <input
                 required
                 type="tel"
-                placeholder="Your WhatsApp Number"
+                placeholder="Enter 10-digit WhatsApp number"
                 value={phone}
-                onChange={e => setPhone(e.target.value)}
+                maxLength={10}
+                onChange={e => {
+                  const val = e.target.value.replace(/\D/g, '');
+                  setPhone(val);
+                  if (val.length > 0 && val.length < 10) {
+                    setPhoneError('Please enter a valid 10-digit number');
+                  } else {
+                    setPhoneError('');
+                  }
+                }}
                 style={inputStyle}
                 onFocus={e => e.target.style.border = '1px solid #FAA819'}
                 onBlur={e => e.target.style.border = '1px solid rgba(250,168,25,0.3)'}
               />
+              {phoneError && (
+                <p style={{
+                  fontSize: '12px',
+                  color: '#EF4444',
+                  marginTop: '4px',
+                  marginBottom: '16px'
+                }}>
+                  {phoneError}
+                </p>
+              )}
               <button
                 type="submit"
                 style={{
@@ -259,7 +284,7 @@ const EbookPopup = () => {
               </p>
 
               <a
-                href="/ebook.pdf"
+                href="https://drive.google.com/file/d/12ou4x_DElWQsZjLB41-VCiO7g72ITFsv/view"
                 target="_blank"
                 rel="noreferrer"
                 style={{
