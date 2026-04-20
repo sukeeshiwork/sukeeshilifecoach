@@ -26,7 +26,8 @@ const Success = () => {
     *Amount Paid:* ${state.amount}
     *Payment ID:* ${state.paymentId}
     
-    Looking forward to our session! 🙏`
+    Looking forward to our session! 🙏
+    Please attach your payment screenshot`
   );
 
   const whatsappUrl = `https://wa.me/919099031325?text=${whatsappMessage}`;
@@ -205,7 +206,7 @@ const Success = () => {
                   lineHeight: 1.6,
                   textAlign: 'left'
                 }}>
-                  <strong style={{ color: '#333333' }}>Please take a screenshot</strong> of this page
+                  <strong style={{ color: '#333333' }}>Please take a screenshot</strong> of your payment
                   and attach it along with your WhatsApp message
                   as proof of payment. This will help us confirm
                   your booking faster. 🙏
