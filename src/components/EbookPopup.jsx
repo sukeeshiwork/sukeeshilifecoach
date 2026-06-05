@@ -21,6 +21,10 @@ const EbookPopup = () => {
 
     await fetch(EBOOK_SHEET_URL, {
       method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         name: name,
         whatsapp: phone,

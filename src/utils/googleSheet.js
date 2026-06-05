@@ -4,6 +4,10 @@ export const saveToSheet = async (sheetName, data) => {
   try {
     const response = await fetch(SHEET_URL, {
       method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({ 
         sheetName, 
         action: 'save', 
@@ -22,6 +26,10 @@ export const updatePaymentStatus = async (sheetName, rowIndex, paymentId) => {
   try {
     const response = await fetch(SHEET_URL, {
       method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         sheetName,
         action: 'updatePayment',
