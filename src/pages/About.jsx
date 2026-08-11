@@ -107,7 +107,7 @@ const About = () => {
                 backdropFilter: 'blur(10px)',
               }}>
                 <img
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800"
+                  src="https://res.cloudinary.com/dfdxfvbtg/image/upload/v1786436617/WhatsApp_Image_2026-08-11_at_13.51.42_i0uev1.jpg"
                   alt="Coach Sukeshi"
                   style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }}
                 />
