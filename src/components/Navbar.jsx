@@ -243,7 +243,7 @@ const Navbar = () => {
             >
               Services
             </a>
-            <NavLink
+            {/* <NavLink
               to="/parenting"
               onClick={() => setMenuOpen(false)}
               style={{ fontSize: '22px', fontWeight: 600, color: '#1A1A1A', textDecoration: 'none' }}
@@ -256,7 +256,7 @@ const Navbar = () => {
               style={{ fontSize: '22px', fontWeight: 600, color: '#1A1A1A', textDecoration: 'none' }}
             >
               Ebooks
-            </NavLink>
+            </NavLink> */}
             <NavLink
               to="/contact"
               onClick={() => setMenuOpen(false)}
