@@ -1,579 +1,462 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { Lightbulb, Compass, Zap, Clock, Video, CheckCircle } from 'lucide-react';
 import useWindowSize from '../hooks/useWindowSize';
 
 const ClarityCall = () => {
   const { isMobile, isTablet } = useWindowSize();
+  const CALENDLY_URL = "https://calendly.com/sukeeshi-work/claritycall";
+
+  const styles = `
+    @keyframes pulse-btn {
+      0% { box-shadow: 0 8px 30px rgba(232,132,26,0.4); transform: scale(1); }
+      50% { box-shadow: 0 12px 40px rgba(232,132,26,0.6); transform: scale(1.03); }
+      100% { box-shadow: 0 8px 30px rgba(232,132,26,0.4); transform: scale(1); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .clarity-section {
+      animation: fadeInUp 0.7s ease forwards;
+    }
+  `;
+
+  const talkAboutCards = [
+    {
+      num: "01",
+      title: "What's happening",
+      text: "You tell me what's been going on and what's hurting."
+    },
+    {
+      num: "02",
+      title: "What's underneath it",
+      text: "I'll help you look at the patterns and behaviours that may be keeping you stuck."
+    },
+    {
+      num: "03",
+      title: "What can change",
+      text: "You'll leave with a clearer understanding of what needs to shift and what your next step could be."
+    }
+  ];
+
+  const forYouPoints = [
+    "You love your partner but feel disconnected.",
+    "You're tired of repeating the same arguments.",
+    "You struggle with trust, boundaries or communication.",
+    "You keep overthinking your relationship.",
+    "You feel like you're repeating the same emotional patterns.",
+    "You simply know something doesn't feel right anymore."
+  ];
 
   return (
     <div className="about-page">
+      <style>{styles}</style>
+
+      {/* HERO SECTION */}
       <section style={{
         paddingTop: isMobile ? '80px' : '140px',
         paddingBottom: isMobile ? '40px' : '80px',
         background: 'transparent'
       }}>
         <div className="container">
-
-          {/* SECTION 1 — HERO */}
           <div style={{
-            textAlign: 'center',
             maxWidth: '800px',
-            margin: '0 auto 60px'
-          }}>
-            <span className="badge">Limited Slots Weekly</span>
-            <h1 style={{
-              fontSize: isMobile ? '28px' : isTablet ? '38px' : '52px',
-              marginTop: '16px',
-              marginBottom: '16px',
-              color: '#1A1A1A',
-              lineHeight: 1.2,
-              textAlign: 'center',
-              fontStyle: 'italic'
-            }}>
-              One conversation can shift everything.
-            </h1>
-            <p style={{
-              fontSize: isMobile ? '16px' : '20px',
-              color: '#555',
-              lineHeight: 1.8,
-              textAlign: 'center',
-              marginBottom: '32px'
-            }}>
-              You don't need more advice.<br />
-              <strong style={{ color: '#1A1A1A' }}>You need clarity.</strong>
-            </p>
-
-            {/* Session details */}
-            <div style={{
-              display: 'flex',
-              justifyContent: 'center',
-              gap: isMobile ? '16px' : '32px',
-              flexWrap: 'wrap',
-              marginBottom: '32px'
-            }}>
-              {[
-                { icon: <Clock size={16} />, text: '45–60 minutes' },
-                { icon: <Video size={16} />, text: 'Zoom / Google Meet' },
-              ].map((item, i) => (
-                <div key={i} style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  color: '#666',
-                  fontSize: '14px',
-                  fontWeight: 500
-                }}>
-                  <span style={{ color: '#E8841A' }}>{item.icon}</span>
-                  {item.text}
-                </div>
-              ))}
-            </div>
-
-            <NavLink to="/clarity-call/form">
-              <button className="btn-primary" style={{
-                fontSize: isMobile ? '16px' : '18px',
-                padding: isMobile ? '14px 32px' : '16px 48px',
-                width: isMobile ? '100%' : 'auto'
-              }}>
-                Book Your Clarity Call — ₹333
-              </button>
-            </NavLink>
-
-            {/* Trust notes */}
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '6px',
-              marginTop: '16px'
-            }}>
-              <p style={{ fontSize: '12px', color: '#999' }}>
-                This call is not therapy. It is a clarity + awareness session.
-              </p>
-              <p style={{ fontSize: '12px', color: '#E8841A', fontWeight: 600 }}>
-                ✦ This amount is fully adjusted if you choose to continue in a program.
-              </p>
-            </div>
-          </div>
-
-          {/* SECTION 2 — CONNECTION */}
-          <div style={{
-            maxWidth: '780px',
-            margin: '0 auto 60px'
-          }}>
-            <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-              <span className="badge">Right Now</span>
-              <h2 style={{
-                fontSize: isMobile ? '22px' : '32px',
-                color: '#1A1A1A',
-                marginTop: '16px',
-                textAlign: 'center'
-              }}>
-                You might be feeling...
-              </h2>
-            </div>
-
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
-              gap: '14px',
-              marginBottom: '28px'
-            }}>
-              {[
-                'Stuck in the same patterns',
-                'Emotionally overwhelmed in relationships or parenting',
-                'Reacting in ways you later regret',
-                'Overthinking, yet not finding real solutions'
-              ].map((item, i) => (
-                <div key={i} style={{
-                  background: 'rgba(255,255,255,0.5)',
-                  backdropFilter: 'blur(16px)',
-                  border: '1px solid rgba(250,168,25,0.2)',
-                  borderLeft: '3px solid #FAA819',
-                  borderRadius: '12px',
-                  padding: isMobile ? '14px 16px' : '16px 20px',
-                  display: 'flex',
-                  gap: '12px',
-                  alignItems: 'flex-start'
-                }}>
-                  <span style={{ color: '#E8841A', flexShrink: 0, marginTop: '2px' }}>•</span>
-                  <p style={{
-                    fontSize: isMobile ? '14px' : '15px',
-                    color: '#444',
-                    margin: 0,
-                    lineHeight: 1.5
-                  }}>
-                    {item}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            <div style={{
-              background: 'rgba(255,255,255,0.5)',
-              backdropFilter: 'blur(16px)',
-              border: '1px solid rgba(250,168,25,0.2)',
-              borderRadius: '16px',
-              padding: isMobile ? '20px' : '28px',
-              textAlign: 'center'
-            }}>
-              <p style={{
-                fontSize: isMobile ? '14px' : '16px',
-                color: '#555',
-                lineHeight: 1.9,
-                margin: 0
-              }}>
-                And despite trying…<br />
-                <strong style={{ color: '#1A1A1A' }}>nothing seems to change deeply.</strong>
-              </p>
-            </div>
-          </div>
-
-          {/* SECTION 3 — REFRAME */}
-          <div style={{
-            maxWidth: '780px',
-            margin: '0 auto 60px',
+            margin: '0 auto',
             textAlign: 'center'
           }}>
-            <span className="badge">The Shift</span>
-            <h2 style={{
-              fontSize: isMobile ? '22px' : '32px',
+
+            {/* TOP BADGE */}
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: 'rgba(250,168,25,0.1)',
+              border: '1px solid rgba(250,168,25,0.3)',
+              borderRadius: '50px',
+              padding: '8px 20px',
+              marginBottom: '32px',
+              fontSize: '13px',
+              color: '#E8841A',
+              fontWeight: 600
+            }}>
+              ✨ Complimentary • No Cost • Limited Slots
+            </div>
+
+            {/* MAIN HEADLINE — split styled */}
+            <h1 style={{
+              fontSize: isMobile ? '36px' : '64px',
+              fontWeight: 800,
               color: '#1A1A1A',
-              marginTop: '16px',
-              marginBottom: '20px',
+              lineHeight: 1.1,
+              marginBottom: '32px',
               textAlign: 'center'
             }}>
-              Here's what most people don't realise:
-            </h2>
+              You know something<br />
+              <span style={{
+                background: 'linear-gradient(135deg, #FAA819, #E8841A)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
+              }}>
+                isn't working.
+              </span>
+            </h1>
+
+            {/* STORY CARD */}
             <div style={{
-              background: 'rgba(255,255,255,0.55)',
-              backdropFilter: 'blur(16px)',
+              background: 'rgba(255,255,255,0.6)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
               border: '1px solid rgba(250,168,25,0.2)',
-              borderRadius: '20px',
-              padding: isMobile ? '24px' : '40px'
+              borderRadius: '24px',
+              padding: isMobile ? '28px 24px' : '48px',
+              marginBottom: '32px',
+              textAlign: 'left'
             }}>
               <p style={{
-                fontSize: isMobile ? '16px' : '20px',
-                color: '#999',
-                textDecoration: 'line-through',
-                marginBottom: '8px'
+                fontSize: isMobile ? '15px' : '18px',
+                color: '#444',
+                lineHeight: 2,
+                marginBottom: '24px'
               }}>
-                You don't need to fix your life.
+                You just don't know what to do about it.<br />
+                Maybe you're having the same fight over and over.<br />
+                Maybe you feel disconnected from your partner,
+                struggle with trust or boundaries, or keep
+                repeating patterns you don't understand.
               </p>
-              <p style={{
-                fontSize: isMobile ? '20px' : '28px',
-                fontWeight: 700,
-                color: '#1A1A1A',
-                marginBottom: '20px'
-              }}>
-                You need to understand yourself.
-              </p>
-              <p style={{
-                fontSize: isMobile ? '14px' : '16px',
-                color: '#555',
-                lineHeight: 1.9
-              }}>
-                Because the moment you see clearly…<br />
-                <strong style={{ color: '#D97706' }}>you begin to respond differently.</strong>
-              </p>
-            </div>
-          </div>
 
-          {/* SECTION 4 — WHAT YOU'LL EXPERIENCE */}
-          <div style={{
-            maxWidth: '780px',
-            margin: '0 auto 60px'
-          }}>
-            <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-              <span className="badge">What You'll Experience</span>
-              <h2 style={{
-                fontSize: isMobile ? '22px' : '32px',
-                color: '#1A1A1A',
-                marginTop: '16px',
-                textAlign: 'center'
+              <p style={{
+                fontSize: isMobile ? '15px' : '18px',
+                color: '#444',
+                lineHeight: 1.8,
+                marginBottom: '24px'
               }}>
-                In this 1:1 Clarity Call, you will:
-              </h2>
-            </div>
+                And somewhere inside, you're wondering:
+              </p>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '28px' }}>
-              {[
-                'Understand what\'s really keeping you stuck',
-                'Identify your emotional patterns and triggers',
-                'Gain a new, deeper perspective',
-                'Feel lighter, calmer, and more in control',
-                'Know your next step with clarity'
-              ].map((item, i) => (
-                <div key={i} style={{
-                  display: 'flex',
-                  gap: '14px',
-                  alignItems: 'flex-start',
-                  background: 'rgba(255,255,255,0.5)',
-                  backdropFilter: 'blur(16px)',
-                  border: '1px solid rgba(250,168,25,0.15)',
-                  borderRadius: '12px',
-                  padding: isMobile ? '14px 16px' : '16px 20px'
+              {/* QUOTE HIGHLIGHT */}
+              <div style={{
+                background: 'linear-gradient(135deg, rgba(250,168,25,0.1), rgba(232,132,26,0.05))',
+                border: '1px solid rgba(250,168,25,0.25)',
+                borderLeft: '4px solid #FAA819',
+                borderRadius: '12px',
+                padding: isMobile ? '16px 20px' : '20px 28px',
+                marginBottom: '24px'
+              }}>
+                <p style={{
+                  fontSize: isMobile ? '18px' : '22px',
+                  fontWeight: 700,
+                  color: '#1A1A1A',
+                  fontStyle: 'italic',
+                  margin: 0,
+                  lineHeight: 1.4
                 }}>
-                  <CheckCircle size={18} style={{ color: '#E8841A', flexShrink: 0, marginTop: '2px' }} />
-                  <p style={{
-                    fontSize: isMobile ? '14px' : '15px',
-                    color: '#1A1A1A',
-                    fontWeight: 500,
-                    margin: 0,
-                    lineHeight: 1.4
-                  }}>
-                    {item}
-                  </p>
-                </div>
-              ))}
-            </div>
+                  "Why does this keep happening to me?"
+                </p>
+              </div>
 
-            <div style={{
-              textAlign: 'center',
-              padding: isMobile ? '20px' : '28px',
-              background: 'rgba(250,168,25,0.08)',
-              borderRadius: '16px',
-              border: '1px solid rgba(250,168,25,0.2)'
-            }}>
               <p style={{
                 fontSize: isMobile ? '15px' : '17px',
                 color: '#555',
                 lineHeight: 1.8,
                 margin: 0
               }}>
-                This is not just a conversation…<br />
-                <strong style={{ color: '#D97706' }}>this is the beginning of your shift.</strong>
+                You don't need another generic relationship tip.<br />
+                <strong style={{ color: '#1A1A1A' }}>
+                  You need clarity on what's actually
+                  happening beneath the surface.
+                </strong>
               </p>
             </div>
-          </div>
 
-          {/* SECTION 5 — MY APPROACH */}
-          <div style={{
-            maxWidth: '780px',
-            margin: '0 auto 60px',
-            background: 'rgba(255,255,255,0.5)',
-            backdropFilter: 'blur(16px)',
-            border: '1px solid rgba(250,168,25,0.2)',
-            borderRadius: '20px',
-            padding: isMobile ? '24px' : '40px'
-          }}>
-            <div style={{ textAlign: 'center' }}>
-              <span className="badge" style={{ textAlign: 'center' }}>My Approach</span>
-            </div>
-            <h2 style={{
-              fontSize: isMobile ? '20px' : '28px',
-              color: '#1A1A1A',
-              marginTop: '16px',
-              marginBottom: '16px',
-              textAlign: 'left'
+            {/* HIGHLIGHTED STATEMENT */}
+            <div style={{
+              background: 'linear-gradient(135deg, #FAA819, #E8841A)',
+              borderRadius: '20px',
+              padding: isMobile ? '20px 24px' : '28px 48px',
+              marginBottom: '40px'
             }}>
-              I don't give quick fixes.
-            </h2>
-            <p style={{
-              fontSize: isMobile ? '14px' : '16px',
-              color: '#555',
-              lineHeight: 1.9,
-              textAlign: 'left'
-            }}>
-              Through NLP-based tools and deep inner work,<br />
-              I help you understand <strong style={{ color: '#1A1A1A' }}>why you think, feel, and react the way you do.</strong><br /><br />
-              Because once you understand that…<br />
-              <strong style={{ color: '#D97706' }}>change becomes natural.</strong>
-            </p>
-          </div>
-
-          {/* SECTION 6 — WHO THIS IS FOR */}
-          <div style={{
-            maxWidth: '780px',
-            margin: '0 auto 60px'
-          }}>
-            <div style={{ textAlign: 'center', marginBottom: '28px' }}>
-              <span className="badge">Who This Is For</span>
-              <h2 style={{
-                fontSize: isMobile ? '22px' : '32px',
-                color: '#1A1A1A',
-                marginTop: '16px',
-                textAlign: 'center'
+              <p style={{
+                fontSize: isMobile ? '16px' : '20px',
+                fontWeight: 700,
+                color: '#1A0D00',
+                margin: 0,
+                lineHeight: 1.5
               }}>
-                This call is for you if:
-              </h2>
-            </div>
-            {[
-              'You are ready to look within',
-              'You are open to seeing your patterns honestly',
-              'You truly want change — not just temporary relief'
-            ].map((item, i) => (
-              <div key={i} style={{
-                display: 'flex',
-                gap: '14px',
-                alignItems: 'flex-start',
-                marginBottom: '12px',
-                background: 'rgba(255,255,255,0.5)',
-                backdropFilter: 'blur(16px)',
-                border: '1px solid rgba(250,168,25,0.15)',
-                borderLeft: '3px solid #FAA819',
-                borderRadius: '12px',
-                padding: isMobile ? '14px 16px' : '16px 20px'
-              }}>
-                <span style={{ color: '#E8841A', fontSize: '18px', flexShrink: 0 }}>✦</span>
-                <p style={{
-                  fontSize: isMobile ? '14px' : '16px',
-                  color: '#1A1A1A',
-                  fontWeight: 600,
-                  margin: 0,
-                  lineHeight: 1.4
-                }}>
-                  {item}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          {/* SECTION 7 — WHAT HAPPENS ON THE CALL */}
-          <div style={{
-            maxWidth: '780px',
-            margin: '0 auto 60px'
-          }}>
-            <div style={{ textAlign: 'center', marginBottom: '28px' }}>
-              <span className="badge">The Call</span>
-              <h2 style={{
-                fontSize: isMobile ? '22px' : '32px',
-                color: '#1A1A1A',
-                marginTop: '16px',
-                textAlign: 'center'
-              }}>
-                What happens on the call
-              </h2>
+                That's why I created my Complimentary<br />
+                1:1 Relationship Clarity Call.
+              </p>
             </div>
 
+            {/* CTA BUTTON */}
+            <a
+              href={CALENDLY_URL}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '10px',
+                background: 'linear-gradient(135deg, #FAA819, #E8841A)',
+                color: '#1A0D00',
+                fontWeight: 700,
+                fontSize: isMobile ? '16px' : '18px',
+                padding: isMobile ? '16px 32px' : '20px 56px',
+                borderRadius: '50px',
+                textDecoration: 'none',
+                boxShadow: '0 8px 30px rgba(232,132,26,0.4)',
+                animation: 'pulse-btn 2s ease-in-out infinite',
+                width: isMobile ? '100%' : 'auto',
+                marginBottom: '20px'
+              }}
+            >
+              BOOK MY FREE CLARITY CALL →
+            </a>
+
+            {/* TRUST STRIP */}
             <div style={{
               display: 'flex',
-              flexDirection: 'column',
-              gap: '0'
+              gap: isMobile ? '12px' : '24px',
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+              marginTop: '16px'
             }}>
               {[
-                { num: '01', title: 'You share your current challenge' },
-                { num: '02', title: 'I help you see patterns and blind spots' },
-                { num: '03', title: 'You experience clarity and emotional shift' },
-                { num: '04', title: 'If aligned, I guide you on the next step' },
-              ].map((step, i) => (
-                <div key={i} style={{
+                '🔒 No judgement',
+                '💬 Safe space',
+                '⏱ 45-60 minutes',
+                '📹 Zoom / Meet'
+              ].map((item, i) => (
+                <span key={i} style={{
+                  fontSize: '13px',
+                  color: '#666',
+                  fontWeight: 500
+                }}>
+                  {item}
+                </span>
+              ))}
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* REST OF SECTIONS */}
+      <section style={{
+        paddingBottom: isMobile ? '40px' : '80px',
+        background: 'transparent'
+      }}>
+        <div className="container">
+
+          {/* SECTION 2 — WHAT WE'ALL TALK ABOUT */}
+          <div className="clarity-section" style={{
+            maxWidth: '1000px',
+            margin: '0 auto 80px',
+            textAlign: 'center'
+          }}>
+            <span className="badge">What we'll talk about</span>
+
+            <p style={{
+              fontSize: isMobile ? '16px' : '18px',
+              color: '#555555',
+              maxWidth: '650px',
+              margin: '0 auto 40px',
+              lineHeight: 1.7,
+              textAlign: 'center'
+            }}>
+              This isn't a judgemental conversation. And I'm not here to take sides.
+            </p>
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+              gap: isMobile ? '16px' : '24px',
+              textAlign: 'left'
+            }}>
+              {talkAboutCards.map((card, index) => (
+                <div key={index} className="glass-card" style={{
+                  padding: isMobile ? '24px' : '32px',
                   display: 'flex',
-                  gap: '20px',
-                  alignItems: 'flex-start',
-                  padding: isMobile ? '16px 0' : '20px 0',
-                  borderBottom: i < 3 ? '1px solid rgba(250,168,25,0.15)' : 'none'
+                  flexDirection: 'column',
+                  height: '100%'
                 }}>
                   <div style={{
-                    width: '40px',
-                    height: '40px',
-                    minWidth: '40px',
-                    borderRadius: '50%',
-                    background: 'linear-gradient(135deg, #FAA819, #E8841A)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: '#1A0D00',
-                    fontWeight: 700,
-                    fontSize: '14px'
+                    fontSize: '28px',
+                    fontWeight: 800,
+                    color: '#E8841A',
+                    marginBottom: '12px'
                   }}>
-                    {step.num}
+                    {card.num}
                   </div>
-                  <p style={{
-                    fontSize: isMobile ? '14px' : '16px',
-                    color: '#444',
-                    fontWeight: 500,
-                    margin: 0,
-                    lineHeight: 1.5,
-                    paddingTop: '8px'
+                  <h3 style={{
+                    fontSize: isMobile ? '18px' : '20px',
+                    fontWeight: 700,
+                    color: '#1A1A1A',
+                    marginBottom: '12px'
                   }}>
-                    {step.title}
+                    {card.title}
+                  </h3>
+                  <p style={{
+                    fontSize: isMobile ? '14px' : '15px',
+                    color: '#555555',
+                    lineHeight: 1.6,
+                    margin: 0
+                  }}>
+                    {card.text}
                   </p>
                 </div>
               ))}
             </div>
+          </div>
+
+
+          {/* SECTION 3 — THIS CALL IS FOR YOU IF */}
+          <div className="clarity-section" style={{
+            maxWidth: '1000px',
+            margin: '0 auto 80px',
+            textAlign: 'center'
+          }}>
+            <span className="badge">This call is for you if...</span>
 
             <div style={{
-              textAlign: 'center',
-              marginTop: '24px',
-              padding: '16px',
-              background: 'rgba(255,255,255,0.4)',
-              borderRadius: '12px',
-              border: '1px solid rgba(250,168,25,0.15)'
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+              gap: isMobile ? '16px' : '20px',
+              marginTop: '32px',
+              textAlign: 'left'
             }}>
-              <p style={{
-                fontSize: isMobile ? '14px' : '15px',
-                color: '#666',
-                margin: 0,
-                fontStyle: 'italic'
-              }}>
-                No pressure. Just honest, grounded guidance.
-              </p>
+              {forYouPoints.map((point, index) => (
+                <div key={index} className="glass-card" style={{
+                  padding: isMobile ? '20px' : '24px',
+                  borderLeft: '4px solid #E8841A',
+                  display: 'flex',
+                  alignItems: 'center'
+                }}>
+                  <p style={{
+                    fontSize: isMobile ? '15px' : '16px',
+                    color: '#1A1A1A',
+                    fontWeight: 500,
+                    margin: 0,
+                    lineHeight: 1.5
+                  }}>
+                    • {point}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* SECTION 8 — INVESTMENT */}
-          <div style={{
-            maxWidth: '780px',
-            margin: '0 auto 60px',
-            textAlign: 'center',
-            background: 'rgba(255,255,255,0.55)',
-            backdropFilter: 'blur(16px)',
-            border: '2px solid rgba(250,168,25,0.3)',
-            borderRadius: '20px',
-            padding: isMobile ? '28px 20px' : '48px'
+
+          {/* SECTION 4 — FINAL CTA */}
+          <div className="clarity-section" style={{
+            maxWidth: '800px',
+            margin: '0 auto'
           }}>
-            <span className="badge">Investment</span>
-            <div style={{
-              fontSize: isMobile ? '48px' : '64px',
-              fontWeight: 800,
-              color: '#1A1A1A',
-              marginTop: '16px',
-              marginBottom: '8px',
-              fontFamily: 'Inter, sans-serif'
-            }}>
-              ₹333
-            </div>
-            <p style={{
-              fontSize: isMobile ? '13px' : '15px',
-              color: '#E8841A',
-              fontWeight: 600,
-              marginBottom: '24px'
-            }}>
-              ✦ This amount is fully adjusted if you choose to continue working in a program.
-            </p>
-            <NavLink to="/clarity-call/form">
-              <button className="btn-primary" style={{
-                fontSize: isMobile ? '16px' : '18px',
-                padding: isMobile ? '14px 32px' : '16px 48px',
-                width: isMobile ? '100%' : 'auto'
-              }}>
-                Book Your Clarity Call
-              </button>
-            </NavLink>
-            <div style={{
+            <div className="glass-card" style={{
+              padding: isMobile ? '32px 20px' : '48px 40px',
+              textAlign: 'center',
               display: 'flex',
               flexDirection: 'column',
-              gap: '6px',
-              marginTop: '16px'
+              alignItems: 'center'
             }}>
-              <p style={{ fontSize: '12px', color: '#999' }}>
-                This call is not therapy. It is a clarity + awareness session.
+              <h2 style={{
+                fontSize: isMobile ? '22px' : '32px',
+                fontWeight: 700,
+                color: '#1A1A1A',
+                marginBottom: '16px',
+                lineHeight: 1.3,
+                textAlign: 'center'
+              }}>
+                You don't have to figure it all out alone.
+              </h2>
+
+              <p style={{
+                fontSize: isMobile ? '15px' : '17px',
+                color: '#555555',
+                lineHeight: 1.7,
+                marginBottom: '28px',
+                maxWidth: '650px',
+                textAlign: 'center'
+              }}>
+                I believe healthier relationships begin when we become willing to understand our patterns, our emotions, and the way we show up in relationships.<br />
+                If you're ready to understand yours, I'd love to talk to you.
               </p>
-              <p style={{ fontSize: '12px', color: '#666' }}>
-                Duration: 45–60 minutes • Online (Zoom/Google Meet)
+
+              <div>
+                <a
+                  href={CALENDLY_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '10px',
+                    background: 'linear-gradient(135deg, #FAA819, #E8841A)',
+                    color: '#1A0D00',
+                    fontWeight: 700,
+                    fontSize: isMobile ? '16px' : '18px',
+                    padding: isMobile ? '16px 32px' : '20px 56px',
+                    borderRadius: '50px',
+                    textDecoration: 'none',
+                    boxShadow: '0 8px 30px rgba(232,132,26,0.4)',
+                    animation: 'pulse-btn 2s ease-in-out infinite',
+                    width: isMobile ? '100%' : 'auto',
+                    textAlign: 'center'
+                  }}
+                >
+                  YES, I WANT MY FREE CALL →
+                </a>
+              </div>
+
+              <p style={{
+                fontSize: '13px',
+                color: '#888888',
+                marginTop: '16px',
+                fontWeight: 500,
+                textAlign: 'center',
+                marginBottom: 0
+              }}>
+                No judgement. No taking sides. Just an honest conversation about what's really going on.
               </p>
             </div>
-          </div>
-
-          {/* SECTION 9+10 — URGENCY + CTA */}
-          <div style={{
-            maxWidth: '780px',
-            margin: '0 auto 60px',
-            background: 'rgba(250,168,25,0.06)',
-            border: '1px solid rgba(250,168,25,0.2)',
-            borderRadius: '20px',
-            padding: isMobile ? '24px 20px' : '40px',
-            textAlign: 'center'
-          }}>
-            <span className="badge">Limited Slots</span>
-            <p style={{
-              fontSize: isMobile ? '14px' : '16px',
-              color: '#555',
-              lineHeight: 1.9,
-              marginTop: '16px',
-              marginBottom: '28px'
-            }}>
-              I take only a limited number of calls each week<br />
-              to ensure <strong style={{ color: '#1A1A1A' }}>depth and personal attention.</strong><br /><br />
-              If this resonates with you…<br />
-              <strong style={{ color: '#D97706' }}>don't overthink.</strong>
-            </p>
-            <NavLink to="/clarity-call/form">
-              <button className="btn-primary" style={{
-                fontSize: isMobile ? '16px' : '18px',
-                padding: isMobile ? '14px 32px' : '16px 48px',
-                width: isMobile ? '100%' : 'auto'
-              }}>
-                Book Your Clarity Call — ₹333
-              </button>
-            </NavLink>
-          </div>
-
-          {/* SECTION 11 — FINAL CLOSE */}
-          <div style={{
-            maxWidth: '600px',
-            margin: '0 auto 40px',
-            textAlign: 'center'
-          }}>
-            <h2 style={{
-              fontSize: isMobile ? '22px' : '32px',
-              color: '#1A1A1A',
-              marginBottom: '16px',
-              textAlign: 'center',
-              lineHeight: 1.4
-            }}>
-              You don't need to have everything figured out.
-            </h2>
-            <p style={{
-              fontSize: isMobile ? '15px' : '18px',
-              color: '#555',
-              lineHeight: 1.9,
-              marginBottom: '8px'
-            }}>
-              You just need to take one step…
-            </p>
-            <p style={{
-              fontSize: isMobile ? '18px' : '24px',
-              fontWeight: 700,
-              color: '#D97706'
-            }}>
-              towards clarity.
-            </p>
           </div>
 
         </div>
       </section>
+
+      {/* STICKY CTA BAR (mobile only) */}
+      {isMobile && (
+        <div style={{
+          position: 'fixed',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          padding: '12px 20px',
+          background: 'linear-gradient(135deg, #FAA819, #E8841A)',
+          zIndex: 999,
+          boxShadow: '0 -4px 20px rgba(232,132,26,0.3)'
+        }}>
+          <a
+            href={CALENDLY_URL}
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              display: 'block',
+              textAlign: 'center',
+              color: '#1A0D00',
+              fontWeight: 700,
+              fontSize: '16px',
+              textDecoration: 'none'
+            }}
+          >
+            BOOK MY FREE CLARITY CALL →
+          </a>
+        </div>
+      )}
     </div>
   );
 };

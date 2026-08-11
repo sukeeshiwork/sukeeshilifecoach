@@ -18,7 +18,7 @@ const Contact = () => {
       icon: <FaInstagram />,
       title: 'Instagram',
       description: 'Follow for daily insights on relationships & healing',
-      btnText: 'Follow Us',
+      btnText: 'Follow Me',
       link: 'https://www.instagram.com/lifecoach_sukeeshi',
       isPrimary: false
     },
@@ -26,15 +26,15 @@ const Contact = () => {
       icon: <FaEnvelope />,
       title: 'Email',
       description: 'For detailed queries and collaboration',
-      btnText: 'Email Us',
-      link: 'mailto:sukeeshi.work@gmail.com',
+      btnText: 'Email Me',
+      link: 'mailto:zaverisukeshi@gmail.com',
       isPrimary: false
     },
     {
       icon: <FaFacebook />,
       title: 'Facebook',
       description: 'Follow for daily insights on relationships & healing',
-      btnText: 'Follow Us',
+      btnText: 'Follow Me',
       link: 'https://www.facebook.com/share/1cgxNqoW41/',
       isPrimary: false
     }

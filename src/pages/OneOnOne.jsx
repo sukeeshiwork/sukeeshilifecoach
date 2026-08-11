@@ -272,7 +272,7 @@ const OneOnOne = () => {
                   width: isMobile ? '100%' : 'auto'
                 }}
               >
-                Book a Clarity Call — ₹333
+                Book Your Free Clarity Call
               </button>
             </NavLink>
           </div>

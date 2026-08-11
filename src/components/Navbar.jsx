@@ -190,8 +190,8 @@ const Navbar = () => {
             >
               Services
             </a>
-            <NavLink to="/parenting" className="nav-link">Parenting</NavLink>
-            <NavLink to="/ebooks" className="nav-link">Ebooks</NavLink>
+            {/* <NavLink to="/parenting" className="nav-link">Parenting</NavLink>
+            <NavLink to="/ebooks" className="nav-link">Ebooks</NavLink> */}
             <NavLink to="/contact" className="nav-link">Contact</NavLink>
             <NavLink to="/clarity-call" className="btn-primary nav-cta">
               Book Call

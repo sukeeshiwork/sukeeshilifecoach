@@ -430,7 +430,6 @@ const Home = () => {
                 {/* Clarity Call */}
                 <div className="glass-card offer-card" style={{ padding: '40px', display: 'flex', flexDirection: 'column' }}>
                   <h3 style={{ fontSize: '28px', marginBottom: '8px', color: '#1A1A1A' }}>Clarity Call</h3>
-                  <p style={{ color: '#E8841A', fontWeight: 600, marginBottom: '20px' }}>₹333</p>
                   <div className="feature-list" style={{ marginBottom: '40px', flexGrow: 1 }}>
                     {["Understand your emotional patterns", "Safe space to share freely", "Get clarity on your next step"].map((f, i) => (
                       <div key={i} className="feature-item">
@@ -439,7 +438,7 @@ const Home = () => {
                     ))}
                   </div>
                   <NavLink to="/clarity-call" className="btn-secondary" style={{ width: '100%', textAlign: 'center' }}>
-                    Book Now
+                    Book Free Call
                   </NavLink>
                 </div>
 

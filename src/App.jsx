@@ -76,16 +76,16 @@ function App() {
 
       <ScrollToTop />
       <Navbar />
-      <EbookPopup />
+      {/* <EbookPopup /> */}
       <div style={{ position: 'relative', zIndex: 1 }}></div>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/relationship" element={<Relationship />} />
         <Route path="/one-on-one" element={<OneOnOne />} />
         <Route path="/one-on-one/form" element={<OneOnOneForm />} />
-        <Route path="/parenting" element={<Parenting />} />
+        {/* <Route path="/parenting" element={<Parenting />} /> */}
         <Route path="/clarity-call" element={<ClarityCall />} />
-        <Route path="/ebooks" element={<Ebooks />} />
+        {/* <Route path="/ebooks" element={<Ebooks />} /> */}
         <Route path="/clarity-call/form" element={<ClarityCallForm />} />
         <Route path="/success" element={<Success />} />
         <Route path="/about" element={<About />} />

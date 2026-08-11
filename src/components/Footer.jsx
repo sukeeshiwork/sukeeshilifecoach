@@ -143,7 +143,7 @@ const Footer = ({ content }) => {
             <div className="footer-links">
               <NavLink to="/" className="footer-link">Home</NavLink>
               <NavLink to="/about" className="footer-link">About</NavLink>
-              <NavLink to="/services" className="footer-link">Services</NavLink>
+              {/* <NavLink to="/services" className="footer-link">Services</NavLink> */}
               <NavLink to="/contact" className="footer-link">Contact</NavLink>
             </div>
           </div>
@@ -152,7 +152,7 @@ const Footer = ({ content }) => {
             <h4 className="footer-title">Services</h4>
             <div className="footer-links">
               <NavLink to="/one-on-one" className="footer-link">1-on-1 Coaching</NavLink>
-              <NavLink to="/parenting" className="footer-link">Parenting</NavLink>
+              {/* <NavLink to="/parenting" className="footer-link">Parenting</NavLink> */}
               <NavLink to="/clarity-call" className="footer-link">Clarity Call</NavLink>
             </div>
           </div>
@@ -160,7 +160,7 @@ const Footer = ({ content }) => {
           <div className="footer-col">
             <h4 className="footer-title">Connect</h4>
             <div className="footer-links">
-              <a href="mailto:sukeeshi.work@gmail.com" className="footer-link">Email</a>
+              <a href="mailto:zaverisukeshi@gmail.com" className="footer-link">Email</a>
               <a href="https://wa.me/919099031325" target="_blank" rel="noopener noreferrer" className="footer-link">WhatsApp</a>
               <span className="footer-link">Ahmedabad, Gujarat, India</span>
             </div>
