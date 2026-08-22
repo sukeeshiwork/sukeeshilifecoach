@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FaPlay, FaStar } from 'react-icons/fa';
+import { FaPlay, FaStar, FaWhatsapp } from 'react-icons/fa';
 import useWindowSize from '../hooks/useWindowSize';
 import { useNavigate } from 'react-router-dom';
 
@@ -277,7 +277,7 @@ const Hero = ({ content }) => {
                 {/* VIDEO ELEMENT */}
                 <video
                   ref={videoRef}
-                  src="https://res.cloudinary.com/dfdxfvbtg/video/upload/q_auto/f_auto/v1776680758/Export-Website2-20260417-164832_mryfxa.mov"
+                  src={content?.videoUrl || "https://res.cloudinary.com/dfdxfvbtg/video/upload/q_auto/f_auto/v1787383403/WhatsApp_Video_2026-08-18_at_22.09.28_wj66rk.mp4"}
                   muted
                   playsInline
                   preload="metadata"
@@ -426,6 +426,7 @@ const Hero = ({ content }) => {
             gap: isMobile ? '12px' : '16px',
             width: isMobile ? '100%' : 'auto',
             justifyContent: isTablet ? 'center' : 'flex-start',
+            flexWrap: 'wrap'
           }}>
             <button onClick={() => navigate('/clarity-call')} className="btn-primary" style={{
               width: isMobile ? '100%' : 'auto'
@@ -437,6 +438,31 @@ const Hero = ({ content }) => {
             }}>
               {content.ctaSecondary}
             </button>
+            <a
+              href={content.communityUrl || "https://chat.whatsapp.com/CXjHyZQArA6FmEwlifJyyZ?mode=gi_t"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-community"
+              style={{
+                width: isMobile ? '100%' : 'auto',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                padding: '14px 24px',
+                borderRadius: '50px',
+                fontWeight: 600,
+                fontSize: '15px',
+                background: 'linear-gradient(135deg, #25D366, #128C7E)',
+                color: '#FFFFFF',
+                textDecoration: 'none',
+                boxShadow: '0 4px 16px rgba(37, 211, 102, 0.35)',
+                transition: 'all 0.3s ease'
+              }}
+            >
+              <FaWhatsapp size={18} />
+              {content.ctaCommunity || "Join Community"}
+            </a>
           </div>
 
           {/* TRUST STRIP */}
@@ -484,7 +510,7 @@ const Hero = ({ content }) => {
               {/* VIDEO ELEMENT */}
               <video
                 ref={videoRef}
-                src="https://res.cloudinary.com/dfdxfvbtg/video/upload/q_auto/f_auto/v1776680758/Export-Website2-20260417-164832_mryfxa.mov"
+                src={content?.videoUrl || "https://res.cloudinary.com/dfdxfvbtg/video/upload/q_auto/f_auto/v1787383403/WhatsApp_Video_2026-08-18_at_22.09.28_wj66rk.mp4"}
                 muted
                 playsInline
                 preload="metadata"

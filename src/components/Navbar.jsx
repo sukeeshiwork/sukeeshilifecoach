@@ -193,6 +193,18 @@ const Navbar = () => {
             {/* <NavLink to="/parenting" className="nav-link">Parenting</NavLink>
             <NavLink to="/ebooks" className="nav-link">Ebooks</NavLink> */}
             <NavLink to="/contact" className="nav-link">Contact</NavLink>
+            <a
+              href="https://chat.whatsapp.com/CXjHyZQArA6FmEwlifJyyZ?mode=gi_t"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="nav-link"
+              style={{
+                color: '#128C7E',
+                fontWeight: 600
+              }}
+            >
+              Join Community
+            </a>
             <NavLink to="/clarity-call" className="btn-primary nav-cta">
               Book Call
             </NavLink>
@@ -264,6 +276,15 @@ const Navbar = () => {
             >
               Contact
             </NavLink>
+            <a
+              href="https://chat.whatsapp.com/CXjHyZQArA6FmEwlifJyyZ?mode=gi_t"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMenuOpen(false)}
+              style={{ fontSize: '22px', fontWeight: 600, color: '#128C7E', textDecoration: 'none' }}
+            >
+              Join Community
+            </a>
             <NavLink
               to="/clarity-call"
               className="btn-primary"

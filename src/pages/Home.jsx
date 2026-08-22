@@ -5,6 +5,7 @@ import {
   HeartCrack, Brain, ShieldOff, RefreshCw, ChevronRight, 
   PlayCircle, Sparkles, MessageCircle, Heart, Users 
 } from 'lucide-react';
+import { FaWhatsapp } from 'react-icons/fa';
 import Hero from '../components/Hero';
 import TrustStrip from '../components/TrustStrip';
 import TestimonialCarousel from '../components/TestimonialCarousel';
@@ -534,11 +535,42 @@ const Home = () => {
               <p className="section-subtext" style={{ marginBottom: '40px' }}>
                 {content.packages.finalCTA.subheadline}
               </p>
-              <NavLink to="/clarity-call">
-                <button className="btn-primary" style={{ padding: '18px 48px', fontSize: '18px' }}>
-                  {content.packages.finalCTA.button}
-                </button>
-              </NavLink>
+              <div style={{
+                display: 'flex',
+                gap: '16px',
+                justifyContent: 'center',
+                flexWrap: 'wrap',
+                alignItems: 'center'
+              }}>
+                <NavLink to="/clarity-call">
+                  <button className="btn-primary" style={{ padding: '18px 48px', fontSize: '18px' }}>
+                    {content.packages.finalCTA.button}
+                  </button>
+                </NavLink>
+                <a
+                  href={content.siteInfo.communityUrl || "https://chat.whatsapp.com/CXjHyZQArA6FmEwlifJyyZ?mode=gi_t"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '10px',
+                    padding: '16px 36px',
+                    borderRadius: '50px',
+                    fontWeight: 600,
+                    fontSize: '18px',
+                    background: 'linear-gradient(135deg, #25D366, #128C7E)',
+                    color: '#FFFFFF',
+                    textDecoration: 'none',
+                    boxShadow: '0 4px 20px rgba(37, 211, 102, 0.4)',
+                    transition: 'all 0.3s ease'
+                  }}
+                >
+                  <FaWhatsapp size={22} />
+                  Join Community
+                </a>
+              </div>
             </motion.div>
           </div>
         </section>
